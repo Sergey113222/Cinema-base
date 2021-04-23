@@ -1,5 +1,4 @@
-CREATE
-DATABASE movie_trash;
+CREATE DATABASE movie_trash;
 
 CREATE TABLE users
 (
@@ -7,15 +6,15 @@ CREATE TABLE users
     PRIMARY KEY (id),
     username VARCHAR(50) UNIQUE,
     password VARCHAR(50),
-    role     VARCHAR(50),
+    role VARCHAR(10),
     status   VARCHAR(50),
     created_at  TIMESTAMP NOT NULL DEFAULT NOW(),
     updated_at  TIMESTAMP DEFAULT NOW()
 );
 CREATE TABLE profile (
-    userId INT NOT NULL,
-    usercreated_at DOUBLE NOT NULL,
-    userupdated_at INT NOT NULL,
+    userId BIGINT NOT NULL,
+    usercreated_at TIMESTAMP NOT NULL DEFAULT NOW(),
+    userupdated_at TIMESTAMP DEFAULT NOW(),
     avatar VARCHAR(100),
     userbio TEXT,
     first_name VARCHAR(20),

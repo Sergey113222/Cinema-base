@@ -10,6 +10,6 @@ INSERT INTO movie_trash.movie (name, genre, poster, year, rating, favorite, desc
 VALUES  ('Titanic','Drama','null','1997','5.0','null','Titanic is a 1997 American epic romance and disaster film.',16,'null'),
         ('The Terminator','Sci-fi','null','1984','4.5','null','The Terminator is a 1984 science fiction film.',18,'null');
 INSERT INTO movie_trash.user_role (userrole)
-VALUES ();
+VALUES (null);
 INSERT INTO movie_trash.user_movie (userrating, userfavs, userreview)
-VALUES ();
+VALUES (null);
