@@ -1,46 +1,73 @@
-CREATE DATABASE movie_trash;
+CREATE
+DATABASE movie_trash;
 
-CREATE TABLE users
+CREATE TABLE user
 (
     id       BIGINT    NOT NULL AUTO_INCREMENT,
-    PRIMARY KEY (id),
     username VARCHAR(50) UNIQUE,
     password VARCHAR(50),
-    role VARCHAR(10),
-    status   VARCHAR(50),
-    created_at  TIMESTAMP NOT NULL DEFAULT NOW(),
-    updated_at  TIMESTAMP DEFAULT NOW()
+    role     VARCHAR(10),
+    active   TINYINT (1),
+    created  TIMESTAMP NOT NULL DEFAULT NOW(),
+    updated TIMESTAMP NULL DEFAULT NULL,
+    PRIMARY KEY (id)
 );
-CREATE TABLE profile (
-    userId BIGINT NOT NULL,
-    usercreated_at TIMESTAMP NOT NULL DEFAULT NOW(),
-    userupdated_at TIMESTAMP DEFAULT NOW(),
-    avatar VARCHAR(100),
-    userbio TEXT,
+
+CREATE TABLE profile
+(
+    id         BIGINT    NOT NULL AUTO_INCREMENT,
+    userId     BIGINT    NOT NULL,
+    avatar     VARCHAR(100),
+    about      VARCHAR(500),
     first_name VARCHAR(20),
-    last_name VARCHAR(20),
-    age INT DEFAULT 16 CHECK(Age >0 AND Age < 100),
-    gender VARCHAR(10),
-    region VARCHAR(20),
-    language VARCHAR(20)
+    last_name  VARCHAR(20),
+    age        INT       NOT NULL DEFAULT 0,
+    gender     VARCHAR(10),
+    region     VARCHAR(2),
+    language   VARCHAR(2),
+    created    TIMESTAMP NOT NULL DEFAULT NOW(),
+    updated TIMESTAMP NULL DEFAULT NULL,
+    PRIMARY KEY (id)
 );
-CREATE TABLE user_role (
-    userrole TINYINT (1)
+
+CREATE TABLE movie
+(
+    id               BIGINT    NOT NULL AUTO_INCREMENT,
+    name             VARCHAR(50),
+    poster           VARCHAR(50),
+    year             VARCHAR(10),
+    rating_imdb      DOUBLE    not null,
+    description      MEDIUMTEXT,
+    agere_strictions INT,
+    created          TIMESTAMP NOT NULL DEFAULT NOW(),
+    updated TIMESTAMP NULL DEFAULT NULL,
+    PRIMARY KEY (id)
 );
-CREATE TABLE movie (
+
+CREATE TABLE genre
+(
+    id   INT(3) NOT NULL AUTO_INCREMENT,
     name VARCHAR(50),
-    genre VARCHAR(50),
-    poster VARCHAR(50),
-    year INT,
-    rating DOUBLE not null,
-    favorite TINYINT(1),
-    description MEDIUMTEXT,
-    agerestrictions INT,
-    review VARCHAR (100)
+    created          TIMESTAMP NOT NULL DEFAULT NOW(),
+    updated TIMESTAMP NULL DEFAULT NULL,
+    PRIMARY KEY (id)
 );
-CREATE TABLE user_movie (
-    userrating DOUBLE(5,0),
-    userfavs TINYINT(1),
-    FOREIGN KEY (userreview) REFERENCES movie (review),
-    userreview VARCHAR(100)
+
+CREATE TABLE movie_genre
+(
+    movie_id BIGINT NOT NULL,
+    genre_id BIGINT NOT NULL
+);
+ALTER TABLE movie_genre ADD FOREIGN KEY (movie_id) REFERENCES movie(id);
+ALTER TABLE movie_genre ADD FOREIGN KEY (genre_id) REFERENCES genre(id);
+
+CREATE TABLE user_movie
+(
+    user_id BIGINT NOT NULL,
+    movie_id BIGINT NOT NULL,
+    rating DOUBLE,
+    favourite TINYINT(1),
+    FOREIGN KEY (user_id) REFERENCES user(id),
+    FOREIGN KEY (movie_id) REFERENCES movie(id),
+    review VARCHAR(255)
 );

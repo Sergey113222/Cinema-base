@@ -1,30 +1,29 @@
 package info.movietrash.cinemabase.controller;
 
+import info.movietrash.cinemabase.dto.UserDto;
 import info.movietrash.cinemabase.model.User;
 import info.movietrash.cinemabase.repository.UserRepository;
+import info.movietrash.cinemabase.service.UserService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/movietrash/api/users")
+@AllArgsConstructor
+@RequestMapping(value = "/api/users")
 public class UserController {
-    private final UserRepository userRepository;
-
-    @Autowired
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private final UserService userService;
 
     @PostMapping
-    public void createUser(@RequestBody User user) {
-        userRepository.save(user);
+    public void createUser(@RequestBody UserDto user) {
+        userService.save(user);
     }
 
     @GetMapping
     public List<User> findUsers() {
-        return userRepository.findAll();
+        return userService.findAll();
     }
 
     @GetMapping("/{id}")
@@ -33,13 +32,14 @@ public class UserController {
     }
 
     @PutMapping
-    public void updateUser(@RequestBody User user) {
-        userRepository.save(user);
+    public void updateUser(@RequestBody UserDto user) {
+        //check not to change username
+        userService.save(user);
     }
 
     @DeleteMapping("/{id}")
     public void deleteUserById(@PathVariable("id") Long id) {
-        userRepository.deleteById(id);
+        userService.deleteById(id);
     }
 
 }
