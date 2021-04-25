@@ -23,12 +23,11 @@ public class User {
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
     private Role role;
-    @Column(name = "status")
-    @Enumerated(EnumType.STRING)
-    private Status status;
-    @Column(name = "created_at")
+    @Column(name = "active")
+    private Boolean active;
+    @Column(name = "created")
     private Date created;
-    @Column(name = "updated_at")
+    @Column(name = "updated")
     private Date updated;
 
     @PrePersist

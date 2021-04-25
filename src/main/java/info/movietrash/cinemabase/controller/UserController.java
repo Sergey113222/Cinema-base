@@ -1,7 +1,6 @@
 package info.movietrash.cinemabase.controller;
 
 import info.movietrash.cinemabase.dto.UserDto;
-import info.movietrash.cinemabase.model.User;
 import info.movietrash.cinemabase.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -15,29 +14,28 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public void createUser(@RequestBody UserDto user) {
-        userService.save(user);
+    public void createUser(@RequestBody UserDto userDto) {
+        userService.createUser(userDto);
     }
 
     @GetMapping
-    public List<User> findUsers() {
-        return userService.findAll();
+    public List<UserDto> findUsers() {
+        return userService.findUsers();
     }
 
     @GetMapping("/{id}")
-    public User findUserById(@PathVariable("id") Long id) {
-        return userRepository.findById(id).get();
+    public UserDto findUserById(@PathVariable("id") Long id) {
+        return userService.findUserById(id);
     }
 
     @PutMapping
-    public void updateUser(@RequestBody UserDto user) {
-        //check not to change username
-        userService.save(user);
+    public void updateUser(@RequestBody UserDto userDto) {
+        userService.updateUser(userDto);
     }
 
     @DeleteMapping("/{id}")
     public void deleteUserById(@PathVariable("id") Long id) {
-        userService.deleteById(id);
+        userService.deleteUser(id);
     }
 
 }

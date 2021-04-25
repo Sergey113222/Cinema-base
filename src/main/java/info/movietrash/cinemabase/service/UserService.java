@@ -1,8 +1,6 @@
 package info.movietrash.cinemabase.service;
 
-import info.movietrash.cinemabase.model.User;
-import info.movietrash.cinemabase.repository.UserRepository;
-import lombok.AllArgsConstructor;
+import info.movietrash.cinemabase.dto.UserDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,12 +8,13 @@ import java.util.List;
 @Service
 public interface UserService {
 
-//    private final UserRepository userRepository;
+    UserDto createUser(UserDto userDto);
 
+    List<UserDto> findUsers();
 
-    //Not to delete. Just mark active - false
-    public void deleteById(Long id);
+    UserDto findUserById(Long id);
 
-    //Should return only active users
-    public List<User> findAll();
+    UserDto updateUser(UserDto userDto);
+
+    void deleteUser(Long id);
 }
