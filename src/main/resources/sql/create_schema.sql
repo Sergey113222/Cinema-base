@@ -46,7 +46,7 @@ CREATE TABLE movie
 
 CREATE TABLE genre
 (
-    id      INT(3)    NOT NULL AUTO_INCREMENT,
+    id      BIGINT    NOT NULL AUTO_INCREMENT,
     name    VARCHAR(50),
     created TIMESTAMP NOT NULL DEFAULT NOW(),
     updated TIMESTAMP NULL     DEFAULT NULL,
@@ -56,10 +56,10 @@ CREATE TABLE genre
 CREATE TABLE movie_genre
 (
     movie_id BIGINT NOT NULL,
-    genre_id BIGINT NOT NULL
+    genre_id BIGINT NOT NULL,
+    FOREIGN KEY (movie_id) REFERENCES movie (id),
+    FOREIGN KEY (genre_id) REFERENCES genre (id)
 );
-ALTER TABLE movie_genre ADD FOREIGN KEY (movie_id) REFERENCES movie(id);
-ALTER TABLE movie_genre ADD FOREIGN KEY (genre_id) REFERENCES genre(id);
 
 CREATE TABLE user_movie
 (
