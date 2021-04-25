@@ -7,16 +7,16 @@ CREATE TABLE user
     username VARCHAR(50) UNIQUE,
     password VARCHAR(50),
     role     VARCHAR(10),
-    active   TINYINT (1),
+    active   TINYINT(1),
     created  TIMESTAMP NOT NULL DEFAULT NOW(),
-    updated TIMESTAMP NULL DEFAULT NULL,
+    updated  TIMESTAMP NULL     DEFAULT NULL,
     PRIMARY KEY (id)
 );
 
 CREATE TABLE profile
 (
     id         BIGINT    NOT NULL AUTO_INCREMENT,
-    userId     BIGINT    NOT NULL,
+    user_id    BIGINT    NOT NULL,
     avatar     VARCHAR(100),
     about      VARCHAR(500),
     first_name VARCHAR(20),
@@ -26,7 +26,7 @@ CREATE TABLE profile
     region     VARCHAR(2),
     language   VARCHAR(2),
     created    TIMESTAMP NOT NULL DEFAULT NOW(),
-    updated TIMESTAMP NULL DEFAULT NULL,
+    updated    TIMESTAMP NULL     DEFAULT NULL,
     PRIMARY KEY (id)
 );
 
@@ -40,16 +40,16 @@ CREATE TABLE movie
     description      MEDIUMTEXT,
     agere_strictions INT,
     created          TIMESTAMP NOT NULL DEFAULT NOW(),
-    updated TIMESTAMP NULL DEFAULT NULL,
+    updated          TIMESTAMP NULL     DEFAULT NULL,
     PRIMARY KEY (id)
 );
 
 CREATE TABLE genre
 (
-    id   INT(3) NOT NULL AUTO_INCREMENT,
-    name VARCHAR(50),
-    created          TIMESTAMP NOT NULL DEFAULT NOW(),
-    updated TIMESTAMP NULL DEFAULT NULL,
+    id      INT(3)    NOT NULL AUTO_INCREMENT,
+    name    VARCHAR(50),
+    created TIMESTAMP NOT NULL DEFAULT NOW(),
+    updated TIMESTAMP NULL     DEFAULT NULL,
     PRIMARY KEY (id)
 );
 
@@ -63,11 +63,11 @@ ALTER TABLE movie_genre ADD FOREIGN KEY (genre_id) REFERENCES genre(id);
 
 CREATE TABLE user_movie
 (
-    user_id BIGINT NOT NULL,
-    movie_id BIGINT NOT NULL,
-    rating DOUBLE,
+    user_id   BIGINT NOT NULL,
+    movie_id  BIGINT NOT NULL,
+    rating    DOUBLE,
     favourite TINYINT(1),
-    FOREIGN KEY (user_id) REFERENCES user(id),
-    FOREIGN KEY (movie_id) REFERENCES movie(id),
-    review VARCHAR(255)
+    review    VARCHAR(255),
+    FOREIGN KEY (user_id) REFERENCES user (id),
+    FOREIGN KEY (movie_id) REFERENCES movie (id)
 );
