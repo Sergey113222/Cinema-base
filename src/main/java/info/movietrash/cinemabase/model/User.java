@@ -31,6 +31,9 @@ public class User {
     @Column(name = "updated")
     private Date updated;
 
+    @OneToOne(mappedBy = "profile")
+    private Profile profile;
+
     @PrePersist
     protected void onCreate() {
         created = new Date();

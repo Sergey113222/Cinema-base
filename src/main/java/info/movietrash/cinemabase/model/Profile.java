@@ -39,6 +39,10 @@ public class Profile {
     @Column(name = "updated")
     private Date updated;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
+
     @PrePersist
     protected void onCreate() {
         created = new Date();
