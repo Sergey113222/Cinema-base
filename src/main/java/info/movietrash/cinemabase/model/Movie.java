@@ -17,17 +17,17 @@ public class Movie {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "name")
-    private String moviename;
+    private String name;
     @Column(name = "poster")
     private String poster;
     @Column(name = "year")
     private String year;
     @Column(name = "rating_imdb")
-    private Double rating_imdb;
+    private Double ratingImdb;
     @Column(name = "description")
     private String description;
-    @Column(name = "age_restrictions")
-    private Integer age_restriction;
+    @Column(name = "is_adult")
+    private Boolean adult;
     @Column(name = "created")
     private Date created;
     @Column(name = "updated")
