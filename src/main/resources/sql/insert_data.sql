@@ -14,14 +14,14 @@ VALUES (1, 'Matrix', NULL, NULL, 8.5,
 
 INSERT INTO `movie_genre`
 VALUES (2, 1),
-       (1, 4)
-    (1, 2);
+       (1, 4),
+       (1, 2);
 
 INSERT INTO `profile`
-VALUES (1, NULL, 'java developer, volunteer, nice guy', 'Raman', 'Kashanok', 36, 'male', 'BY', 'ru',
+VALUES (1, NULL, 'java developer, volunteer, nice guy','test1@gmail.com', 'Raman', 'Kashanok', 36, 'male', 'BY', 'ru',
         '2021-05-02 12:05:06', NULL),
-       (2, NULL, 'java trainee', 'Sergey', 'Gritsuk', 35, 'male', 'BY', 'ru', '2021-05-02 12:05:41', NULL),
-       (3, NULL, 'java trainee', 'Denis', 'Yasiuchenia', 25, 'male', 'BY', 'ru', '2021-05-02 12:06:13', NULL);
+       (2, NULL, 'java trainee', 'test2@gmai.com', 'Sergey', 'Gritsuk', 35, 'male', 'BY', 'ru', '2021-05-02 12:05:41', NULL),
+       (3, NULL, 'java trainee', 'yasyuchenya1@gmail.com', 'Denis', 'Yasiuchenia', 25, 'male', 'BY', 'ru', '2021-05-02 12:06:13', NULL);
 
 INSERT INTO `user`
 VALUES (1, 'kashenok.r', 'password1', 'USER', 1, 1, NULL, '2021-05-02 12:06:49'),
