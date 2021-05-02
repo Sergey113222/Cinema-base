@@ -1,46 +1,37 @@
 package info.movietrash.cinemabase.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @Table(name = "user")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class User extends BaseModel {
+
     @Column(name = "username")
+    @Getter
+    @Setter
     private String username;
+
     @Column(name = "password")
+    @Getter
+    @Setter
     private String password;
+
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
+    @Getter
+    @Setter
     private Role role;
-    @Column(name = "active")
-    private Boolean active;
-    @Column(name = "created")
-    private Date created;
-    @Column(name = "updated")
-    private Date updated;
 
-    @OneToOne(mappedBy = "profile")
+    @Column(name = "active")
+    @Getter
+    @Setter
+    private Boolean active = true;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "profile_id", referencedColumnName = "id")
     private Profile profile;
 
-    @PrePersist
-    protected void onCreate() {
-        created = new Date();
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        updated = new Date();
-    }
 }
