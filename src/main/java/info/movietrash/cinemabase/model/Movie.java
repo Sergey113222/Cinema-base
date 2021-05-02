@@ -3,36 +3,35 @@ package info.movietrash.cinemabase.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "user")
+@Table(name = "movie")
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class User {
+@NoArgsConstructor
+public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "username")
-    private String username;
-    @Column(name = "password")
-    private String password;
-    @Column(name = "role")
-    @Enumerated(EnumType.STRING)
-    private Role role;
-    @Column(name = "active")
-    private Boolean active;
+    @Column(name = "name")
+    private String name;
+    @Column(name = "poster")
+    private String poster;
+    @Column(name = "year")
+    private String year;
+    @Column(name = "rating_imdb")
+    private Double ratingImdb;
+    @Column(name = "description")
+    private String description;
+    @Column(name = "is_adult")
+    private Boolean adult;
     @Column(name = "created")
     private Date created;
     @Column(name = "updated")
     private Date updated;
-
-    @OneToOne(mappedBy = "profile")
-    private Profile profile;
 
     @PrePersist
     protected void onCreate() {
