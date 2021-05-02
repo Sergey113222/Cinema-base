@@ -1,4 +1,4 @@
-package info.movietrash.cinemabase;
+package info.movietrash.cinemabase.exception;
 
 public class ErrorMessage {
     public static final String RESOURCE_NOT_FOUND = "Requested resource not found (id = %s)";

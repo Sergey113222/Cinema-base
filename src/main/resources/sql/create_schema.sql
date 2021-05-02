@@ -1,5 +1,5 @@
 CREATE
-DATABASE movie_trash;
+    DATABASE movie_trash;
 
 CREATE TABLE user
 (
@@ -32,15 +32,15 @@ CREATE TABLE profile
 
 CREATE TABLE movie
 (
-    id               BIGINT    NOT NULL AUTO_INCREMENT,
-    name             VARCHAR(50),
-    poster           VARCHAR(50),
-    year             VARCHAR(10),
-    rating_imdb      DOUBLE    not null,
-    description      MEDIUMTEXT,
-    agere_strictions INT,
-    created          TIMESTAMP NOT NULL DEFAULT NOW(),
-    updated          TIMESTAMP NULL     DEFAULT NULL,
+    id          BIGINT    NOT NULL AUTO_INCREMENT,
+    name        VARCHAR(50),
+    poster      VARCHAR(50),
+    year        VARCHAR(10),
+    rating_imdb DOUBLE    not null,
+    description VARCHAR(500),
+    is_adult       TINYINT(1),
+    created     TIMESTAMP NOT NULL DEFAULT NOW(),
+    updated     TIMESTAMP NULL     DEFAULT NULL,
     PRIMARY KEY (id)
 );
 
