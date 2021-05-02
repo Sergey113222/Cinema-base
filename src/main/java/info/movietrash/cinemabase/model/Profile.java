@@ -1,23 +1,12 @@
 package info.movietrash.cinemabase.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
-import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "profile")
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class Profile {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(name = "user_id")
-    private Long userId;
+public class Profile extends BaseModel {
+
     @Column(name = "avatar")
     private String avatar;
     @Column(name = "about")
@@ -34,23 +23,11 @@ public class Profile {
     private String region;
     @Column(name = "language")
     private String language;
-    @Column(name = "created")
-    private Date created;
-    @Column(name = "updated")
-    private Date updated;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @OneToOne(mappedBy = "profile")
     private User user;
 
-    @PrePersist
-    protected void onCreate() {
-        created = new Date();
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        updated = new Date();
-    }
+    @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<UserMovie> userMovies;
 
 }

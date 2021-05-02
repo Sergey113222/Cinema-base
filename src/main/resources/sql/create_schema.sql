@@ -1,73 +1,85 @@
-CREATE
-    DATABASE movie_trash;
+CREATE DATABASE movie_trash;
 
-CREATE TABLE user
+create table genre
 (
-    id       BIGINT    NOT NULL AUTO_INCREMENT,
-    username VARCHAR(50) UNIQUE,
-    password VARCHAR(50),
-    role     VARCHAR(10),
-    active   TINYINT(1),
-    created  TIMESTAMP NOT NULL DEFAULT NOW(),
-    updated  TIMESTAMP NULL     DEFAULT NULL,
-    PRIMARY KEY (id)
+    id      bigint auto_increment               primary key,
+    name    varchar(100)                        null,
+    created timestamp default CURRENT_TIMESTAMP not null,
+    updated timestamp                           null
 );
 
-CREATE TABLE profile
+create table movie
 (
-    id         BIGINT    NOT NULL AUTO_INCREMENT,
-    user_id    BIGINT    NOT NULL,
-    avatar     VARCHAR(100),
-    about      VARCHAR(500),
-    first_name VARCHAR(20),
-    last_name  VARCHAR(20),
-    age        INT       NOT NULL DEFAULT 0,
-    gender     VARCHAR(10),
-    region     VARCHAR(2),
-    language   VARCHAR(2),
-    created    TIMESTAMP NOT NULL DEFAULT NOW(),
-    updated    TIMESTAMP NULL     DEFAULT NULL,
-    PRIMARY KEY (id)
+    id           bigint auto_increment                primary key,
+    title        varchar(255)                         not null,
+    poster       varchar(1000)                        null,
+    premier_date timestamp                            null,
+    imdb         double                               null,
+    description  varchar(1000)                        null,
+    is_adult     tinyint(1) default 0                 not null,
+    created      timestamp  default CURRENT_TIMESTAMP not null,
+    updated      timestamp                            null
 );
 
-CREATE TABLE movie
+create index moviee_id_index
+    on movie (id);
+
+create table movie_genre
 (
-    id          BIGINT    NOT NULL AUTO_INCREMENT,
-    name        VARCHAR(50),
-    poster      VARCHAR(50),
-    year        VARCHAR(10),
-    rating_imdb DOUBLE    not null,
-    description VARCHAR(500),
-    is_adult       TINYINT(1),
-    created     TIMESTAMP NOT NULL DEFAULT NOW(),
-    updated     TIMESTAMP NULL     DEFAULT NULL,
-    PRIMARY KEY (id)
+    movie_id bigint not null,
+    genre_id bigint not null,
+    primary key (genre_id, movie_id)
 );
 
-CREATE TABLE genre
+create index movie_genre_id_index
+    on movie_genre (genre_id);
+
+create table profile
 (
-    id      BIGINT    NOT NULL AUTO_INCREMENT,
-    name    VARCHAR(50),
-    created TIMESTAMP NOT NULL DEFAULT NOW(),
-    updated TIMESTAMP NULL     DEFAULT NULL,
-    PRIMARY KEY (id)
+    id         bigint auto_increment               primary key,
+    avatar     varchar(1000)                       null,
+    about      varchar(500)                        null,
+    first_name varchar(50)                         null,
+    last_name  varchar(50)                         null,
+    age        int                                 not null,
+    gender     varchar(10)                         not null,
+    region     varchar(2)                          null,
+    language   varchar(2)                          null,
+    created    timestamp default CURRENT_TIMESTAMP not null,
+    updated    timestamp                           null
 );
 
-CREATE TABLE movie_genre
+create index profile_id_index
+    on profile (id);
+
+create table user
 (
-    movie_id BIGINT NOT NULL,
-    genre_id BIGINT NOT NULL,
-    FOREIGN KEY (movie_id) REFERENCES movie (id),
-    FOREIGN KEY (genre_id) REFERENCES genre (id)
+    id         bigint auto_increment                primary key,
+    username   varchar(255)                         not null,
+    password   varchar(255)                         not null,
+    role       varchar(10)                          not null,
+    active     tinyint(1) default 1                 not null,
+    profile_id bigint                               not null,
+    updated    timestamp                            null,
+    created    timestamp  default CURRENT_TIMESTAMP not null,
+    constraint user_profile_fk
+        foreign key (profile_id) references profile (id)
+            on update cascade on delete cascade
 );
 
-CREATE TABLE user_movie
+create table user_movie
 (
-    user_id   BIGINT NOT NULL,
-    movie_id  BIGINT NOT NULL,
-    rating    DOUBLE,
-    favourite TINYINT(1),
-    review    VARCHAR(255),
-    FOREIGN KEY (user_id) REFERENCES user (id),
-    FOREIGN KEY (movie_id) REFERENCES movie (id)
+    id         bigint auto_increment                primary key,
+    profile_id bigint                               not null,
+    movie_id   bigint                               not null,
+    rating     int                                  null,
+    notes      varchar(128)                         null,
+    viewed     tinyint(1) default 0                 not null,
+    created    timestamp  default CURRENT_TIMESTAMP not null,
+    updated    timestamp                            null,
+    constraint user_movie_movie_id_fk
+        foreign key (movie_id) references movie (id),
+    constraint user_movie_profile_id_fk
+        foreign key (profile_id) references profile (id)
 );
+

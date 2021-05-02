@@ -1,24 +1,37 @@
-INSERT INTO movie_trash.user (username, password, role, active, created, updated)
-VALUES ('Sergey', 'G113222', 'GUEST', true, now(), now()),
-       ('Roman', 'G113221', 'ADMIN', true, now(), now()),
-       ('Denis', 'G113223', 'GUEST', false, now(), now());
-INSERT INTO movie_trash.user (username, password, role, active, created, updated)
-VALUES ('Sergey', 'G113222', 'GUEST', true, now(), now()),
-       ('Roman', 'G113221', 'ADMIN', true, now(), now()),
-       ('Denis', 'G113223', 'GUEST', false, now(), now());
-INSERT INTO profile (user_id, avatar, about, first_name, last_name, age, gender, region, language, created, updated)
-VALUES ('1','URL','Junior java developer.','Sergey','Gritsuk','25','Male','Be','Ru',NOW(),NOW()),
-       ('2','URL','Java team lead.','Roman','Kashenok','25','Male','Be','Ru',NOW(),NOW()),
-       ('3','URL','Just a nice guy.','Denis','Yasyuchenya','25','Male','Be','Ru',NOW(),NOW());
-INSERT INTO movie (name, poster, year, rating_imdb, description, agere_strictions, created, updated)
-VALUES ('Titanic','URL','1997','9','The human story involves an 17-year-old woman named Rose DeWitt Bukater (Kate Winslet) who is...','16', NOW(),NOW()),
-       ('Terminator','URL','1984','8.7','In 1984 Los Angeles, a cyborg assassin known as a Terminator arrives from 2029, where mankind...','18',NOW(),NOW());
-INSERT INTO genre (name, created, updated)
-VALUES ('Titanic',NOW(),NOW()),
-       ('Terminator',NOW(),NOW());
-INSERT INTO movie_genre (movie_id, genre_id)
-VALUES ('1','1'),
-        ('2','2');
-INSERT INTO user_movie (user_id, movie_id, rating, favourite, review)
-VALUES  ('1','1','7.0',false,'Great movie about love.'),
-        ('2','2','10.0',true,'One of my favorite movies');
+INSERT INTO `genre`
+VALUES (1, 'Comedy', '2021-05-02 12:00:23', NULL),
+       (2, 'Horror', '2021-05-02 12:00:45', NULL),
+       (3, 'Drama', '2021-05-02 12:00:46', NULL),
+       (4, 'Fantasy', '2021-05-02 12:00:55', NULL);
+
+INSERT INTO `movie`
+VALUES (1, 'Matrix', NULL, NULL, 8.5,
+        'Matrix movie description example description example description example description example description example description example description example description example description example description example description example description example description example description example description example description example description example ',
+        0, '2021-05-02 12:02:02', NULL),
+       (2, 'Always say \'YES\'', NULL, NULL, 9.2,
+        'Movie with Jim Carry description example description example description example description example description example description example description example description example description example ',
+        0, '2021-05-02 12:03:11', NULL);
+
+INSERT INTO `movie_genre`
+VALUES (2, 1),
+       (1, 4)
+    (1, 2);
+
+INSERT INTO `profile`
+VALUES (1, NULL, 'java developer, volunteer, nice guy', 'Raman', 'Kashanok', 36, 'male', 'BY', 'ru',
+        '2021-05-02 12:05:06', NULL),
+       (2, NULL, 'java trainee', 'Sergey', 'Gritsuk', 35, 'male', 'BY', 'ru', '2021-05-02 12:05:41', NULL),
+       (3, NULL, 'java trainee', 'Denis', 'Yasiuchenia', 25, 'male', 'BY', 'ru', '2021-05-02 12:06:13', NULL);
+
+INSERT INTO `user`
+VALUES (1, 'kashenok.r', 'password1', 'USER', 1, 1, NULL, '2021-05-02 12:06:49'),
+       (2, 'gritsuk.s', 'password2', 'USER', 1, 2, NULL, '2021-05-02 12:07:08'),
+       (3, 'yasiuchenia.d', 'password3', 'USER', 1, 3, NULL, '2021-05-02 12:07:34');
+
+INSERT INTO `user_movie`
+VALUES (1, 1, 1, 8, 'Надо посмотреть на ближайших выходных', 0, '2021-05-02 12:08:34', NULL),
+       (2, 1, 2, 9, 'Надо посмотреть вечером', 0, '2021-05-02 12:08:53', NULL),
+       (3, 2, 2, 8, 'Гляну при возможности', 0, '2021-05-02 12:09:18', NULL),
+       (4, 2, 1, 9, 'Посмотрел, все же на 8ку...', 1, '2021-05-02 12:09:35', NULL),
+       (5, 3, 1, 7, 'Не люблю фантастику, но Киану молодец!', 0, '2021-05-02 12:10:25', NULL),
+       (6, 3, 2, 9, 'Нравится Джим Керри. Обязательно посмотрю', 1, '2021-05-02 12:11:01', NULL);
