@@ -39,6 +39,7 @@ create table profile
     id         bigint auto_increment               primary key,
     avatar     varchar(1000)                       null,
     about      varchar(500)                        null,
+    email      varchar(100)                        null,
     first_name varchar(50)                         null,
     last_name  varchar(50)                         null,
     age        int                                 not null,

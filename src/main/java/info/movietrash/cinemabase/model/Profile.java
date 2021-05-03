@@ -11,6 +11,8 @@ public class Profile extends BaseModel {
     private String avatar;
     @Column(name = "about")
     private String about;
+    @Column (name = "email")
+    private String email;
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")
