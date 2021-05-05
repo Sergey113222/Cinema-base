@@ -5,11 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
-    <preConditions>
-        <dbms type="mysql"/>
-    </preConditions>
-
-        <changeSet author="Денис" id="01">
+        <changeSet author="denis" id="01">
             <createTable tableName="genre">
                 <column autoIncrement="true" name="id" type="BIGINT">
                     <constraints primaryKey="true"/>
@@ -21,7 +17,7 @@
                 <column name="updated" type="TIMESTAMP(19)"/>
             </createTable>
         </changeSet>
-        <changeSet author="Денис" id="10">
+        <changeSet author="denis" id="10">
             <createTable tableName="movie">
                 <column autoIncrement="true" name="id" type="BIGINT">
                     <constraints primaryKey="true"/>
@@ -42,7 +38,7 @@
                 <column name="updated" type="TIMESTAMP(19)"/>
             </createTable>
         </changeSet>
-        <changeSet author="Денис" id="20">
+        <changeSet author="denis" id="20">
             <createTable tableName="movie_genre">
                 <column name="movie_id" type="BIGINT">
                     <constraints nullable="false"/>
@@ -52,7 +48,7 @@
                 </column>
             </createTable>
         </changeSet>
-        <changeSet author="Денис" id="30">
+        <changeSet author="denis" id="30">
             <createTable tableName="profile">
                 <column autoIncrement="true" name="id" type="BIGINT">
                     <constraints primaryKey="true"/>
@@ -76,7 +72,7 @@
                 <column name="updated" type="TIMESTAMP(19)"/>
             </createTable>
         </changeSet>
-        <changeSet author="Денис" id="40">
+        <changeSet author="denis" id="40">
             <createTable tableName="user">
                 <column autoIncrement="true" name="id" type="BIGINT">
                     <constraints primaryKey="true"/>
@@ -102,7 +98,7 @@
                 </column>
             </createTable>
         </changeSet>
-        <changeSet author="Денис" id="50">
+        <changeSet author="denis" id="50">
             <createTable tableName="user_movie">
                 <column autoIncrement="true" name="id" type="BIGINT">
                     <constraints primaryKey="true"/>
@@ -124,39 +120,39 @@
                 <column name="updated" type="TIMESTAMP(19)"/>
             </createTable>
         </changeSet>
-        <changeSet author="Денис" id="60">
+        <changeSet author="denis" id="60">
             <addPrimaryKey columnNames="genre_id, movie_id" constraintName="PRIMARY" tableName="movie_genre"/>
         </changeSet>
-        <changeSet author="Денис" id="70">
+        <changeSet author="denis" id="70">
             <createIndex indexName="movie_genre_id_index" tableName="movie_genre">
                 <column name="genre_id"/>
             </createIndex>
         </changeSet>
-        <changeSet author="Денис" id="80">
+        <changeSet author="denis" id="80">
             <createIndex indexName="user_movie_movie_id_fk" tableName="user_movie">
                 <column name="movie_id"/>
             </createIndex>
         </changeSet>
-        <changeSet author="Денис" id="90">
+        <changeSet author="denis" id="90">
             <createIndex indexName="user_movie_profile_id_fk" tableName="user_movie">
                 <column name="profile_id"/>
             </createIndex>
         </changeSet>
-        <changeSet author="Денис" id="100">
+        <changeSet author="denis" id="100">
             <createIndex indexName="user_profile_fk" tableName="user">
                 <column name="profile_id"/>
             </createIndex>
         </changeSet>
-        <changeSet author="Денис" id="110">
+        <changeSet author="denis" id="110">
             <addForeignKeyConstraint baseColumnNames="movie_id" baseTableName="user_movie" constraintName="user_movie_movie_id_fk" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="movie"/>
         </changeSet>
-        <changeSet author="Денис" id="120">
+        <changeSet author="denis" id="120">
             <addForeignKeyConstraint baseColumnNames="profile_id" baseTableName="user_movie" constraintName="user_movie_profile_id_fk" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="profile"/>
         </changeSet>
-        <changeSet author="Денис" id="130">
+        <changeSet author="denis" id="130">
             <addForeignKeyConstraint baseColumnNames="profile_id" baseTableName="user" constraintName="user_profile_fk" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE" referencedColumnNames="id" referencedTableName="profile"/>
         </changeSet>
-        <changeSet id="140" author="Денис">
+        <changeSet author="denis" id="140">
             <rollback>
                 <dropTable tableName="genre"/>
             </rollback>
