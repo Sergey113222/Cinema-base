@@ -5,8 +5,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import info.movietrash.cinemabase.dto.MovieDto;
 import info.movietrash.cinemabase.dto.SearchDto;
-import org.json.JSONArray;
-import org.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.RequestEntity;
@@ -55,18 +54,18 @@ public class SearchMovieController {
             ResponseEntity<String> response = restTemplate.exchange(request, String.class);
             String moviesJson = response.getBody();
 
-            JSONObject jsonObj = new JSONObject(moviesJson);
-
-            JSONArray ja_data = jsonObj.getJSONArray("results");
-            for (int i = 0; i < jsonObj.length(); i++) {
-                ObjectMapper objectMapper = new ObjectMapper();
-                objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
-                objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-
-                List<MovieDto> jsonToMoviesList = objectMapper.readValue(moviesJson, new TypeReference<List<MovieDto>>() {
-                });
-                jsonToMoviesList.forEach(System.out::println);
-            }
+//            JSONObject jsonObj = new JSONObject(moviesJson);
+//
+//            JSONArray ja_data = jsonObj.getJSONArray("results");
+//            for (int i = 0; i < jsonObj.length(); i++) {
+//                ObjectMapper objectMapper = new ObjectMapper();
+//                objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+//                objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+//
+//                List<MovieDto> jsonToMoviesList = objectMapper.readValue(moviesJson, new TypeReference<List<MovieDto>>() {
+//                });
+//                jsonToMoviesList.forEach(System.out::println);
+//            }
 
             return null;
 

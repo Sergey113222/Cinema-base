@@ -2,6 +2,7 @@ package info.movietrash.cinemabase.dto;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,8 +11,7 @@ import java.util.List;
 
 
 @NoArgsConstructor
-@Setter
-@Getter
+@Data
 @JsonAutoDetect
 public class MovieDto {
 
