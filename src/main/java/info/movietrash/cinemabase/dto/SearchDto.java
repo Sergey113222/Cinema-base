@@ -8,7 +8,7 @@ import lombok.Setter;
 public class SearchDto {
 
     private String query;                   //Pass a text query to search. This value should be URI encoded.
-    //    private String lang;                    //default: en-US
+    private String lang = "en-US";                    //default: en-US
     private boolean includeAdult;
 
 }
