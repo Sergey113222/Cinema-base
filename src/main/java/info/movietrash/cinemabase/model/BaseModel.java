@@ -35,4 +35,8 @@ public abstract class BaseModel {
     protected void onUpdate() {
         updated = new Date();
     }
+
+    public abstract void setAvatar_SinglePerson_PublicID(String publicId);
+
+    public abstract void setAvatar_Collective_PublicID(String publicId);
 }

@@ -1,6 +1,7 @@
 package info.movietrash.cinemabase.service;
 
 import info.movietrash.cinemabase.dto.UserDto;
+import info.movietrash.cinemabase.model.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,4 +16,6 @@ public interface UserService {
     void updateUser(UserDto userDto);
 
     void deleteUser(Long id);
+
+    User getUser(String authToken, String email);
 }
