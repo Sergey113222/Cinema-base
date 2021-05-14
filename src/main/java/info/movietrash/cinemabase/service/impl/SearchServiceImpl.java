@@ -24,18 +24,25 @@ public class SearchServiceImpl implements SearchService {
 
     @Value("${themoviedb.ord.api-key}")
     private String apiKey;
+    @Value("${themoviedb.ord.scheme}")
+    private String scheme;
+    @Value("${themoviedb.ord.host}")
+    private String host;
 
     private final RestTemplate restTemplate;
+    private final ObjectMapper objectMapper;
+    private final String jsonNodeStr = "results";
 
-    public SearchServiceImpl(RestTemplate restTemplate) {
+    public SearchServiceImpl(RestTemplate restTemplate, ObjectMapper objectMapper) {
         this.restTemplate = restTemplate;
+        this.objectMapper = objectMapper;
     }
 
     @Override
     public List<MovieDto> searchMoviesByName(SearchDto dto) throws JsonProcessingException {
         URI uri = UriComponentsBuilder.newInstance()
-                .scheme("https")
-                .host("api.themoviedb.org")
+                .scheme(scheme)
+                .host(host)
                 .path("/3/search/movie")
                 .queryParam("api_key", apiKey)
                 .queryParam("query", dto.getQuery())
@@ -47,10 +54,9 @@ public class SearchServiceImpl implements SearchService {
         ResponseEntity<String> response = restTemplate.exchange(request, String.class);
         String moviesJson = response.getBody();
 
-        ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         JsonNode responseBody = objectMapper.readTree(moviesJson);
-        JsonNode resultsMassive = responseBody.path("results");
+        JsonNode resultsMassive = responseBody.path(jsonNodeStr);
         List<MovieDto> jsonToMoviesList = objectMapper.readValue(resultsMassive.toString(), new TypeReference<List<MovieDto>>() {
         });
         return jsonToMoviesList;
@@ -59,8 +65,8 @@ public class SearchServiceImpl implements SearchService {
     @Override
     public List<MovieDto> searchMoviesPopular() throws JsonProcessingException {
         URI uri = UriComponentsBuilder.newInstance()
-                .scheme("https")
-                .host("api.themoviedb.org")
+                .scheme(scheme)
+                .host(host)
                 .path("/3/movie/popular")
                 .queryParam("api_key", apiKey)
                 .build()
@@ -70,10 +76,9 @@ public class SearchServiceImpl implements SearchService {
         ResponseEntity<String> response = restTemplate.exchange(request, String.class);
         String moviesJson = response.getBody();
 
-        ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         JsonNode responseBody = objectMapper.readTree(moviesJson);
-        JsonNode resultsMassive = responseBody.path("results");
+        JsonNode resultsMassive = responseBody.path(jsonNodeStr);
         List<MovieDto> jsonToMoviesList = objectMapper.readValue(resultsMassive.toString(), new TypeReference<List<MovieDto>>() {
         });
         return jsonToMoviesList;
@@ -82,8 +87,8 @@ public class SearchServiceImpl implements SearchService {
     @Override
     public MovieDto searchMovieLatest() throws JsonProcessingException {
         URI uri = UriComponentsBuilder.newInstance()
-                .scheme("https")
-                .host("api.themoviedb.org")
+                .scheme(scheme)
+                .host(host)
                 .path("/3/movie/latest")
                 .queryParam("api_key", apiKey)
                 .build()
@@ -93,7 +98,6 @@ public class SearchServiceImpl implements SearchService {
         ResponseEntity<String> response = restTemplate.exchange(request, String.class);
         String moviesJson = response.getBody();
 
-        ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         MovieDto movieDto = objectMapper.readValue(moviesJson, MovieDto.class);
         return movieDto;

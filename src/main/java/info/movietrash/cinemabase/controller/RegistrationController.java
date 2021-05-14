@@ -3,7 +3,6 @@ package info.movietrash.cinemabase.controller;
 import info.movietrash.cinemabase.dto.UserDto;
 import info.movietrash.cinemabase.service.UserService;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
