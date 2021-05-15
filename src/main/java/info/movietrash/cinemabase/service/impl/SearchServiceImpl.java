@@ -31,7 +31,7 @@ public class SearchServiceImpl implements SearchService {
 
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
-    private final String jsonNodeStr = "results";
+    private final static String JSON_NODE_STR = "results";
 
     public SearchServiceImpl(RestTemplate restTemplate, ObjectMapper objectMapper) {
         this.restTemplate = restTemplate;
@@ -56,7 +56,7 @@ public class SearchServiceImpl implements SearchService {
 
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         JsonNode responseBody = objectMapper.readTree(moviesJson);
-        JsonNode resultsMassive = responseBody.path(jsonNodeStr);
+        JsonNode resultsMassive = responseBody.path(JSON_NODE_STR);
         List<MovieDto> jsonToMoviesList = objectMapper.readValue(resultsMassive.toString(), new TypeReference<List<MovieDto>>() {
         });
         return jsonToMoviesList;
@@ -78,7 +78,7 @@ public class SearchServiceImpl implements SearchService {
 
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         JsonNode responseBody = objectMapper.readTree(moviesJson);
-        JsonNode resultsMassive = responseBody.path(jsonNodeStr);
+        JsonNode resultsMassive = responseBody.path(JSON_NODE_STR);
         List<MovieDto> jsonToMoviesList = objectMapper.readValue(resultsMassive.toString(), new TypeReference<List<MovieDto>>() {
         });
         return jsonToMoviesList;
