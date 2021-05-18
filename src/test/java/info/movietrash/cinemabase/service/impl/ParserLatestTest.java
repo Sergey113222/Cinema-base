@@ -4,14 +4,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import info.movietrash.cinemabase.dto.MovieDto;
-import org.junit.Assert;
-import org.junit.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 
-@SpringBootTest
 public class ParserLatestTest {
-
     private static String str = "{\n" +
             "    \"id\": 828717,\n" +
             "    \"title\": \"NGHE DOC\",\n" +
@@ -25,12 +22,11 @@ public class ParserLatestTest {
 
     @Test
     public void parseResponseLatestToClass() throws JsonProcessingException {
-
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         MovieDto movieDto = objectMapper.readValue(str, MovieDto.class);
         System.out.println(movieDto);
 
-        Assert.assertNotNull(movieDto);
+        Assertions.assertNotNull(movieDto);
     }
 }

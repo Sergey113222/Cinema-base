@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UserConverterImpl implements UserConverter {
+
     @Override
     public User toModel(UserDto userDto) {
         if (ObjectUtils.anyNull(userDto, userDto.getUsername(), userDto.getPassword())) {

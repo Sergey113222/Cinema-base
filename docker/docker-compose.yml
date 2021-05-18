@@ -1,0 +1,27 @@
+version: '3.3'
+
+services:
+  db:
+    image: mysql:latest
+    container_name: movie-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: 'root-pass'
+      MYSQL_DATABASE: 'movie_trash'
+      MYSQL_USER: 'movie_user'
+      MYSQL_PASSWORD: 'movie_pass'
+    ports:
+      - '3306:3306'
+    volumes:
+      - movie-db:/var/lib/mysql
+    networks:
+      - movie-network
+
+networks:
+  movie-network:
+    driver: "bridge"
+
+volumes:
+  movie-db: { }
+
+

@@ -21,6 +21,9 @@ import java.util.List;
 
 @Service
 public class SearchServiceImpl implements SearchService {
+    private final static String JSON_NODE_STR = "results";
+    private final RestTemplate restTemplate;
+    private final ObjectMapper objectMapper;
 
     @Value("${themoviedb.ord.api-key}")
     private String apiKey;
@@ -28,10 +31,6 @@ public class SearchServiceImpl implements SearchService {
     private String scheme;
     @Value("${themoviedb.ord.host}")
     private String host;
-
-    private final RestTemplate restTemplate;
-    private final ObjectMapper objectMapper;
-    private final static String JSON_NODE_STR = "results";
 
     public SearchServiceImpl(RestTemplate restTemplate, ObjectMapper objectMapper) {
         this.restTemplate = restTemplate;
@@ -81,6 +80,7 @@ public class SearchServiceImpl implements SearchService {
         JsonNode resultsMassive = responseBody.path(JSON_NODE_STR);
         List<MovieDto> jsonToMoviesList = objectMapper.readValue(resultsMassive.toString(), new TypeReference<List<MovieDto>>() {
         });
+
         return jsonToMoviesList;
     }
 
