@@ -9,7 +9,7 @@
         <dbms type="mysql"/>
     </preConditions>
 
-    <changeSet id="0" author="denis">
+    <changeSet id="01" author="Sergey">
         <tagDatabase tag="db_init"/>
     </changeSet>
 
