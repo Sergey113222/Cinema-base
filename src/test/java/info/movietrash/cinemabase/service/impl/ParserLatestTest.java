@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 
 public class ParserLatestTest {
-    private static String str = "{\n" +
+    private static String inputFile = "{\n" +
             "    \"id\": 828717,\n" +
             "    \"title\": \"NGHE DOC\",\n" +
             "    \"overview\": \"A look at the life and artistic perspective of contemporary Vietnamese artist Phuong Vu Manh.\",\n" +
@@ -24,7 +24,7 @@ public class ParserLatestTest {
     public void parseResponseLatestToClass() throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        MovieDto movieDto = objectMapper.readValue(str, MovieDto.class);
+        MovieDto movieDto = objectMapper.readValue(inputFile, MovieDto.class);
         System.out.println(movieDto);
 
         Assertions.assertNotNull(movieDto);

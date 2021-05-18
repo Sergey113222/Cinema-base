@@ -20,7 +20,7 @@
     <properties>
         <java.version>8</java.version>
         <org.junit.jupiter>5.1.0</org.junit.jupiter>
-        <liquibase.version>3.8.0</liquibase.version>
+        <liquibase.version>4.3.5</liquibase.version>
         <lombok.version>1.18.12</lombok.version>
     </properties>
 
@@ -41,7 +41,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
+            <version>8.0.23</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>

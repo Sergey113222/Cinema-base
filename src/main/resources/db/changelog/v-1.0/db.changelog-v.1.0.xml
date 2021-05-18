@@ -8,36 +8,36 @@
     <changeSet id="1" author="Sergey">
         <sql>
             create table genre (
-            id      bigint auto_increment               primary key,
-            name    varchar(100)                        null,
+            id bigint auto_increment primary key,
+            name varchar(100) null,
             created timestamp default CURRENT_TIMESTAMP not null,
-            updated timestamp                           null
+            updated timestamp null
             );
         </sql>
         <rollback>
-            DROP table genre;
+            DROP TABLE IF EXISTS genre;
         </rollback>
     </changeSet>
     <changeSet id="2" author="Sergey">
         <sql>
             create table movie
             (
-            id           bigint auto_increment                primary key,
-            title        varchar(255)                         not null,
-            poster       varchar(1000)                        null,
-            premier_date timestamp                            null,
-            imdb         double                               null,
-            description  varchar(1000)                        null,
-            is_adult     tinyint(1) default 0                 not null,
-            created      timestamp  default CURRENT_TIMESTAMP not null,
-            updated      timestamp                            null
+            id bigint auto_increment primary key,
+            title varchar(255) not null,
+            poster varchar(1000) null,
+            premier_date timestamp null,
+            imdb double null,
+            description varchar(1000) null,
+            is_adult tinyint(1) default 0 not null,
+            created timestamp default CURRENT_TIMESTAMP not null,
+            updated timestamp null
             );
 
             create index movie_id_index
             on movie (id);
         </sql>
         <rollback>
-            drop table movie
+            DROP TABLE IF EXISTS movie
         </rollback>
     </changeSet>
     <changeSet id="3" author="Sergey">
@@ -54,75 +54,60 @@
 
         </sql>
         <rollback>
-            DROP table movie_genre;
+            DROP TABLE IF EXISTS movie_genre;
         </rollback>
     </changeSet>
     <changeSet id="4" author="Sergey">
         <sql>
             create table profile
             (
-            id         bigint auto_increment               primary key,
-            avatar     varchar(1000)                       null,
-            about      varchar(500)                        null,
-            email      varchar(100)                        null,
-            first_name varchar(50)                         null,
-            last_name  varchar(50)                         null,
-            age        int                                 not null,
-            gender     varchar(10)                         not null,
-            region     varchar(2)                          null,
-            language   varchar(2)                          null,
-            created    timestamp default CURRENT_TIMESTAMP not null,
-            updated    timestamp                           null
+            id bigint auto_increment primary key,
+            avatar varchar(1000) null,
+            about varchar(500) null,
+            email varchar(100) null,
+            first_name varchar(50) null,
+            last_name varchar(50) null,
+            age int not null,
+            gender varchar(10) not null,
+            region varchar(2) null,
+            language varchar(2) null,
+            created timestamp default CURRENT_TIMESTAMP not null,
+            updated timestamp null
             );
 
             create index profile_id_index
             on profile (id);
         </sql>
         <rollback>
-            DROP table profile;
+            DROP TABLE IF EXISTS profile;
         </rollback>
     </changeSet>
     <changeSet id="5" author="Sergey">
         <sql>
             create table user
             (
-            id         bigint auto_increment                primary key,
-            username   varchar(255)                         not null,
-            password   varchar(255)                         not null,
-            role       varchar(10)                          not null,
-            active     tinyint(1) default 1                 not null,
-            profile_id bigint                               not null,
-            updated    timestamp                            null,
-            created    timestamp  default CURRENT_TIMESTAMP not null,
+            id bigint auto_increment primary key,
+            username varchar(255) not null,
+            password varchar(255) not null,
+            role varchar(10) not null,
+            active tinyint(1) default 1 not null,
+            profile_id bigint not null,
+            updated timestamp null,
+            created timestamp default CURRENT_TIMESTAMP not null,
             constraint user_profile_fk
             foreign key (profile_id) references profile (id)
             on update cascade on delete cascade
             );
         </sql>
         <rollback>
-            DROP table user;
+            DROP TABLE IF EXISTS user;
         </rollback>
     </changeSet>
-    <changeSet id="6" author="Sergey">
-        <sql>
-            create table user_movie
-            (
-            id         bigint auto_increment                primary key,
-            profile_id bigint                               not null,
-            movie_id   bigint                               not null,
-            rating     int                                  null,
-            notes      varchar(128)                         null,
-            viewed     tinyint(1) default 0                 not null,
-            created    timestamp  default CURRENT_TIMESTAMP not null,
-            updated    timestamp                            null,
-            constraint user_movie_movie_id_fk
-            foreign key (movie_id) references movie (id),
-            constraint user_movie_profile_id_fk
-            foreign key (profile_id) references profile (id)
-            );
-        </sql>
+    <changeSet id="18-05-2021_6" author="Sergey" context="create table">
+        <comment>Init table user_movie</comment>
+        <sqlFile path="db-scripts/user_movie_tables.sql" relativeToChangelogFile="true" />
         <rollback>
-            DROP table user_movie;
+            DROP TABLE IF EXISTS user_movie;
         </rollback>
     </changeSet>
-        </databaseChangeLog>
+</databaseChangeLog>
