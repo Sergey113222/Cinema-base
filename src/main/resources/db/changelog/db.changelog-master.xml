@@ -12,7 +12,6 @@
     <changeSet id="01" author="Sergey">
         <tagDatabase tag="db_init"/>
     </changeSet>
-
     <changeSet id="02" author="Sergey">
         <tagDatabase tag="add column external_id table movie"/>
     </changeSet>

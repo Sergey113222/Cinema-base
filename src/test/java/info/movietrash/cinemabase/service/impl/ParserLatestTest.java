@@ -4,8 +4,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import info.movietrash.cinemabase.dto.MovieDto;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions;
 import org.springframework.boot.test.context.SpringBootTest;
 
 
@@ -31,6 +32,6 @@ public class ParserLatestTest {
         MovieDto movieDto = objectMapper.readValue(str, MovieDto.class);
         System.out.println(movieDto);
 
-        Assert.assertNotNull(movieDto);
+        Assertions.assertNotNull(movieDto);
     }
 }
