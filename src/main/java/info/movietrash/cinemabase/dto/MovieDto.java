@@ -9,13 +9,10 @@ import lombok.Setter;
 
 import java.util.List;
 
-
-@NoArgsConstructor
 @Data
+@NoArgsConstructor
 @JsonAutoDetect
 public class MovieDto {
-
-
     private Long id;
     private String title;
     @JsonProperty("poster_path")
@@ -28,5 +25,5 @@ public class MovieDto {
     private Boolean adult;
     @JsonProperty("genre_ids")
     private List<Integer> genreIds;
-
 }
+

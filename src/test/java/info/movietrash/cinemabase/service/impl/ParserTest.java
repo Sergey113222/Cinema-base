@@ -6,35 +6,26 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import info.movietrash.cinemabase.dto.MovieDto;
 import org.apache.commons.io.FileUtils;
-import org.junit.Assert;
-import org.junit.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
-@SpringBootTest
-public class ParserTest {
 
+public class ParserTest {
     private static String str = "response.json";
 
     @Test
     public void readFromFile() throws IOException {
         String actualStr = readTestResourceFile(str);
-        System.out.println(actualStr);
-        Assert.assertNotNull(actualStr);
-    }
-
-    protected String readTestResourceFile(String fileName) throws IOException {
-        URL resource = this.getClass().getClassLoader().getResource(fileName);
-        return FileUtils.readFileToString(new File(resource.getPath()));
-
+        //System.out.println(actualStr);
+        Assertions.assertNotNull(actualStr);
     }
 
     @Test
     public void parseResponseToClass() throws IOException {
-
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         String actualStr = readTestResourceFile(str);
@@ -42,8 +33,13 @@ public class ParserTest {
         JsonNode resultsMassive = responseBody.path("results");
         List<MovieDto> jsonToMoviesList = objectMapper.readValue(resultsMassive.toString(), new TypeReference<List<MovieDto>>() {
         });
-        jsonToMoviesList.forEach(System.out::println);
+        //jsonToMoviesList.forEach(System.out::println);
 
-        Assert.assertNotNull(jsonToMoviesList);
+        Assertions.assertNotNull(jsonToMoviesList);
+    }
+
+    private String readTestResourceFile(String fileName) throws IOException {
+        URL resource = this.getClass().getClassLoader().getResource(fileName);
+        return FileUtils.readFileToString(new File(resource.getPath()));
     }
 }

@@ -15,7 +15,7 @@
             );
         </sql>
         <rollback>
-            DROP table genre;
+            DROP TABLE IF EXISTS genre;
         </rollback>
     </changeSet>
     <changeSet id="2" author="Sergey">
@@ -37,7 +37,7 @@
             on movie (id);
         </sql>
         <rollback>
-            drop table movie
+            drop TABLE IF EXISTS movie
         </rollback>
     </changeSet>
     <changeSet id="3" author="Sergey">
@@ -54,7 +54,7 @@
 
         </sql>
         <rollback>
-            DROP table movie_genre;
+            DROP TABLE IF EXISTS movie_genre;
         </rollback>
     </changeSet>
     <changeSet id="4" author="Sergey">
@@ -79,7 +79,7 @@
             on profile (id);
         </sql>
         <rollback>
-            DROP table profile;
+            DROP TABLE IF EXISTS profile;
         </rollback>
     </changeSet>
     <changeSet id="5" author="Sergey">
@@ -100,7 +100,7 @@
             );
         </sql>
         <rollback>
-            DROP table user;
+            DROP TABLE IF EXISTS user;
         </rollback>
     </changeSet>
     <changeSet id="6" author="Sergey">
@@ -122,7 +122,7 @@
             );
         </sql>
         <rollback>
-            DROP table user_movie;
+            DROP TABLE IF EXISTS user_movie;
         </rollback>
     </changeSet>
         </databaseChangeLog>
