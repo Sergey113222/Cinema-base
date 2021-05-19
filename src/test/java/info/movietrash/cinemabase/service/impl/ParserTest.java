@@ -28,6 +28,7 @@ public class ParserTest {
     public void parseResponseToClass() throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
         String actualStr = readTestResourceFile(str);
         JsonNode responseBody = objectMapper.readTree(actualStr);
         JsonNode resultsMassive = responseBody.path("results");
