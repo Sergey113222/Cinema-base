@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @AllArgsConstructor
 @RequestMapping(value = "/favourite")
-public class MovieController {
+public class UserMovieController {
 
     private final MovieService movieService;
 
-    @PostMapping(value = "/new")
+    @PostMapping
     public Long addMovie(@RequestBody MovieDto movieDto) {
         return movieService.addMovie(movieDto);
     }
@@ -22,7 +22,7 @@ public class MovieController {
         return movieService.fetchMovieById(id);
     }
 
-    @PutMapping(value = "/update")
+    @PutMapping
     public void updateMovie(@RequestBody MovieDto movieDto) {
         movieService.updateMovie(movieDto);
     }

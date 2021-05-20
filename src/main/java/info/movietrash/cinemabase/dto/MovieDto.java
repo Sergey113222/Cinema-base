@@ -13,8 +13,8 @@ import java.util.List;
 @Data
 @JsonAutoDetect
 public class MovieDto {
-
-    private Long id;
+    @JsonProperty("id")
+    private Long externalId;
     private String title;
     @JsonProperty("poster_path")
     private String posterPath;

@@ -19,7 +19,10 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public Long addMovie(MovieDto movieDto) {
-        return movieRepository.save(movieConverter.toModel(movieDto)).getId();
+        if (movieRepository.findByExternalId(movieDto.getExternalId()) != null) {
+            return movieRepository.findByExternalId(movieDto.getExternalId()).getId();
+        } else
+            return movieRepository.save(movieConverter.toModel(movieDto)).getId();
     }
 
     @Override
@@ -32,7 +35,7 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public void updateMovie(MovieDto movieDto) {
-        Long id = movieDto.getId();
+        Long id = (movieRepository.findByExternalId(movieDto.getExternalId())).getId();
         Movie existed = movieRepository.findById(id).orElseThrow(() ->
                 new IllegalArgumentException(String.format(ErrorMessages.RESOURCE_NOT_FOUND, User.class, id)));
         existed.setTitle(movieDto.getTitle());
@@ -41,13 +44,14 @@ public class MovieServiceImpl implements MovieService {
         existed.setImdb(movieDto.getVoteAverage());
         existed.setDescription(movieDto.getOverview());
         existed.setAdult(movieDto.getAdult());
+        existed.setExternalId(movieDto.getExternalId());
         movieRepository.save(existed);
     }
 
     @Override
     public void deleteMovie(Long id) {
         Movie movie = movieRepository.findById(id).orElseThrow(() ->
-                new IllegalArgumentException(String.format(ErrorMessages.RESOURCE_NOT_FOUND, User.class, id)));
+                new IllegalArgumentException(String.format(ErrorMessages.RESOURCE_NOT_FOUND, Movie.class, id)));
         movieRepository.delete(movie);
     }
 }

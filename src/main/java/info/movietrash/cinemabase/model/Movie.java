@@ -28,6 +28,8 @@ public class Movie extends BaseModel {
     private String description;
     @Column(name = "is_adult")
     private Boolean adult;
+    @Column(name = "external_id")
+    private Long externalId;
 
     @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     @JoinTable(name = "movie_genre",
