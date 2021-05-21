@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 @Slf4j
 public class ErrorControllerAdvice {
+
     @ExceptionHandler(JsonProcessingException.class)
     ResponseEntity handleException(JsonProcessingException ex) {
         log.error("Caught JsonProcessingException - {}", ex.getMessage());

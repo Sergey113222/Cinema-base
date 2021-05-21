@@ -9,10 +9,14 @@
         <dbms type="mysql"/>
     </preConditions>
 
-    <changeSet id="0" author="denis">
+    <changeSet id="01" author="Sergey">
         <tagDatabase tag="db_init"/>
     </changeSet>
+    <changeSet id="02" author="Sergey">
+        <tagDatabase tag="add column external_id table movie"/>
+    </changeSet>
 
-    <include file="v-1.0/db.changelog-v.1.0.xml" relativeToChangelogFile="true"/>
+    <include file="changelog_001.xml" relativeToChangelogFile="true"/>
+    <include file="changelog_002.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>
