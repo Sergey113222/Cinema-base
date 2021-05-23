@@ -1,9 +1,12 @@
 package info.movietrash.cinemabase.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Data
 @Table(name = "profile")
 public class Profile extends BaseModel {
 
@@ -11,7 +14,7 @@ public class Profile extends BaseModel {
     private String avatar;
     @Column(name = "about")
     private String about;
-    @Column (name = "email")
+    @Column(name = "email")
     private String email;
     @Column(name = "first_name")
     private String firstName;

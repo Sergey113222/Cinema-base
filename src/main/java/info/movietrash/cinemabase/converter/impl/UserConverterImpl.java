@@ -14,17 +14,23 @@ public class UserConverterImpl implements UserConverter {
             throw new IllegalArgumentException("Some of required fields is null: " + userDto);
         }
         User user = new User();
+        ProfileConverterImpl profileConverter = new ProfileConverterImpl();
         user.setUsername(userDto.getUsername());
         user.setPassword(userDto.getPassword());
+        user.setRole(userDto.getRole());
+        user.setProfile(profileConverter.toModel(userDto.getProfileDto()));
         return user;
     }
 
     @Override
     public UserDto toDto(User user) {
         UserDto userDto = new UserDto();
+        ProfileConverterImpl profileConverter = new ProfileConverterImpl();
         userDto.setId(user.getId());
         userDto.setUsername(user.getUsername());
         userDto.setPassword(user.getPassword());
+        userDto.setRole(user.getRole());
+        userDto.setProfileDto(profileConverter.toDto(user.getProfile()));
         return userDto;
     }
 }

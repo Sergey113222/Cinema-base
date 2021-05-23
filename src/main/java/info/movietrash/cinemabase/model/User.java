@@ -32,6 +32,8 @@ public class User extends BaseModel {
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "profile_id", referencedColumnName = "id")
+    @Getter
+    @Setter
     private Profile profile;
 
 }

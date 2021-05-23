@@ -1,13 +1,15 @@
 package info.movietrash.cinemabase.service;
 
 import info.movietrash.cinemabase.dto.MovieDto;
+import org.springframework.stereotype.Service;
 
+@Service
 public interface MovieService {
-    Long addMovie(MovieDto movieDto);
+    Long addToFavouriteMovies(MovieDto movieDto);
 
-    MovieDto fetchMovieById(Long id);
+    MovieDto fetchFavouriteMovieById(Long id);
 
-    void updateMovie(MovieDto movieDto);
+    void updateFavouriteMovie(MovieDto movieDto);
 
-    void deleteMovie(Long id);
+    void deleteFavouriteMovie(Long id);
 }

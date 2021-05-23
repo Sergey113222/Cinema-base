@@ -13,22 +13,22 @@ public class UserMovieController {
     private final MovieService movieService;
 
     @PostMapping
-    public Long addMovie(@RequestBody MovieDto movieDto) {
-        return movieService.addMovie(movieDto);
+    public Long addToFavouriteMovie(@RequestBody MovieDto movieDto) {
+        return movieService.addToFavouriteMovies(movieDto);
     }
 
     @GetMapping("/{id}")
-    public MovieDto findMovieById(@PathVariable("id") Long id) {
-        return movieService.fetchMovieById(id);
+    public MovieDto findFavouriteMovieById(@PathVariable("id") Long id) {
+        return movieService.fetchFavouriteMovieById(id);
     }
 
     @PutMapping
-    public void updateMovie(@RequestBody MovieDto movieDto) {
-        movieService.updateMovie(movieDto);
+    public void updateFavouriteMovie(@RequestBody MovieDto movieDto) {
+        movieService.updateFavouriteMovie(movieDto);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteMovieById(@PathVariable("id") Long id) {
-        movieService.deleteMovie(id);
+    public void deleteFavouriteMovie(@PathVariable("id") Long id) {
+        movieService.deleteFavouriteMovie(id);
     }
 }

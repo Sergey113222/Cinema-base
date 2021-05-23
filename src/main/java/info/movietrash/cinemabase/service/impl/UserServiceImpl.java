@@ -16,6 +16,7 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserConverter userConverter;
 
+    // @Transactional
     @Override
     public Long createUser(UserDto userDto) {
         return userRepository.save(userConverter.toModel(userDto)).getId();

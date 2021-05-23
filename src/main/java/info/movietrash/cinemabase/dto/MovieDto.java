@@ -26,5 +26,5 @@ public class MovieDto {
     private Boolean adult;
     @JsonProperty("genre_ids")
     private List<Integer> genreIds;
-
+    private UserDto user;
 }
