@@ -3,7 +3,9 @@ package info.movietrash.cinemabase.converter.impl;
 import info.movietrash.cinemabase.converter.ProfileConverter;
 import info.movietrash.cinemabase.dto.ProfileDto;
 import info.movietrash.cinemabase.model.Profile;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ProfileConverterImpl implements ProfileConverter {
     @Override
     public Profile toModel(ProfileDto profileDto) {

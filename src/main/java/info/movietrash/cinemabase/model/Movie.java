@@ -1,14 +1,10 @@
 package info.movietrash.cinemabase.model;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Getter
@@ -30,6 +26,10 @@ public class Movie extends BaseModel {
     private Boolean adult;
     @Column(name = "external_id")
     private Long externalId;
+
+    //это мы добавили две строчки
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    private List<User> users = new ArrayList<>();
 
     @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     @JoinTable(name = "movie_genre",

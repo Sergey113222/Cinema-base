@@ -6,9 +6,13 @@ import info.movietrash.cinemabase.exception.ErrorMessages;
 import info.movietrash.cinemabase.model.Movie;
 import info.movietrash.cinemabase.model.User;
 import info.movietrash.cinemabase.repository.MovieRepository;
+import info.movietrash.cinemabase.repository.UserRepository;
 import info.movietrash.cinemabase.service.MovieService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -16,25 +20,32 @@ public class MovieServiceImpl implements MovieService {
 
     private final MovieRepository movieRepository;
     private final MovieConverter movieConverter;
+    private final UserRepository userRepository;
 
+    @Transactional
     @Override
-    public Long addMovie(MovieDto movieDto) {
+    public Long addToFavouriteMovies(MovieDto movieDto) {
+        Long userId = movieDto.getUser().getId();
+        Optional<User> user = userRepository.findById(userId);
+
         if (movieRepository.findByExternalId(movieDto.getExternalId()) != null) {
             return movieRepository.findByExternalId(movieDto.getExternalId()).getId();
-        } else
-            return movieRepository.save(movieConverter.toModel(movieDto)).getId();
+        }
+        Movie movie = movieConverter.toModel(movieDto);
+        movie.getUsers().add(user.get());
+        return movieRepository.save(movie).getId();
     }
 
     @Override
-    public MovieDto fetchMovieById(Long id) {
+    public MovieDto fetchFavouriteMovieById(Long id) {
         Movie movie = movieRepository.findById(id).orElseThrow(() ->
                 new IllegalArgumentException(String.format(ErrorMessages.RESOURCE_NOT_FOUND, Movie.class, id)));
         MovieDto movieDto = movieConverter.toDto(movie);
         return movieDto;
     }
-
+    @Transactional
     @Override
-    public void updateMovie(MovieDto movieDto) {
+    public void updateFavouriteMovie(MovieDto movieDto) {
         Long id = (movieRepository.findByExternalId(movieDto.getExternalId())).getId();
         Movie existed = movieRepository.findById(id).orElseThrow(() ->
                 new IllegalArgumentException(String.format(ErrorMessages.RESOURCE_NOT_FOUND, User.class, id)));
@@ -49,7 +60,7 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public void deleteMovie(Long id) {
+    public void deleteFavouriteMovie(Long id) {
         Movie movie = movieRepository.findById(id).orElseThrow(() ->
                 new IllegalArgumentException(String.format(ErrorMessages.RESOURCE_NOT_FOUND, Movie.class, id)));
         movieRepository.delete(movie);
