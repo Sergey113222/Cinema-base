@@ -12,9 +12,12 @@ import info.movietrash.cinemabase.dto.GenreDto;
 import info.movietrash.cinemabase.repository.GenreRepository;
 import info.movietrash.cinemabase.service.GenreService;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -23,7 +26,7 @@ import java.net.URI;
 import java.util.List;
 
 @Service
-
+@Component
 public class GenreServiceImpl implements GenreService {
     @Value("${themoviedb.ord.api-key}")
     private String apiKey;
@@ -44,6 +47,7 @@ public class GenreServiceImpl implements GenreService {
     }
 
     @Override
+    @EventListener(ApplicationReadyEvent.class)
     public void reloadData() throws JsonProcessingException {
         URI uri = UriComponentsBuilder.newInstance()
                 .scheme(scheme)
