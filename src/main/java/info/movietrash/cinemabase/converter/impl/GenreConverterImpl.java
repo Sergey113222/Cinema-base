@@ -3,10 +3,12 @@ package info.movietrash.cinemabase.converter.impl;
 import info.movietrash.cinemabase.converter.GenreConverter;
 import info.movietrash.cinemabase.dto.GenreDto;
 import info.movietrash.cinemabase.model.Genre;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class GenreConverterImpl implements GenreConverter {
     @Override
     public List<Genre> toModel(List<GenreDto> genreDtoList) {
