@@ -15,8 +15,12 @@
     <changeSet id="02" author="Sergey">
         <tagDatabase tag="add column external_id table movie"/>
     </changeSet>
+    <changeSet id="03" author="Sergey">
+        <tagDatabase tag="add column external_id table genre"/>
+    </changeSet>
 
     <include file="changelog_001.xml" relativeToChangelogFile="true"/>
     <include file="changelog_002.xml" relativeToChangelogFile="true"/>
+    <include file="changelog_003.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>
