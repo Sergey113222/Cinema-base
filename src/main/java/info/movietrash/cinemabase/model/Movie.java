@@ -27,15 +27,11 @@ public class Movie extends BaseModel {
     @Column(name = "external_id")
     private Long externalId;
 
-    //это мы добавили две строчки
     @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<User> users = new ArrayList<>();
-
-    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     @JoinTable(name = "movie_genre",
             joinColumns = {@JoinColumn(name = "movie_id")},
             inverseJoinColumns = {@JoinColumn(name = "genre_id")})
-    private Set<Genre> genres = new HashSet<>();
+    private List<Genre> genres = new ArrayList<>();
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<UserMovie> userMovies;

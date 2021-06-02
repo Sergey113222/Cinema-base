@@ -1,14 +1,18 @@
 package info.movietrash.cinemabase.model;
 
-import lombok.Builder;
+import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
+@Data
 @Table(name = "user_movie")
 public class UserMovie extends BaseModel {
 
+    @Column(name = "user_id")
+    private Long userId;
+    @Column(name = "movie_id")
+    private Long movieId;
     @Column(name = "rating")
     private Integer rating;
     @Column(name = "notes")
@@ -16,9 +20,11 @@ public class UserMovie extends BaseModel {
     @Column(name = "viewed")
     private boolean viewed;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Profile profile;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "movie_id")
     private Movie movie;
 }

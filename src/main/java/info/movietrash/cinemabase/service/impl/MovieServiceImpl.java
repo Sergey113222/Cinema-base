@@ -5,6 +5,7 @@ import info.movietrash.cinemabase.dto.MovieDto;
 import info.movietrash.cinemabase.exception.ErrorMessages;
 import info.movietrash.cinemabase.model.Movie;
 import info.movietrash.cinemabase.model.User;
+import info.movietrash.cinemabase.model.UserMovie;
 import info.movietrash.cinemabase.repository.MovieRepository;
 import info.movietrash.cinemabase.repository.UserRepository;
 import info.movietrash.cinemabase.service.MovieService;
@@ -26,13 +27,22 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public Long addToFavouriteMovies(MovieDto movieDto) {
         Long userId = movieDto.getUser().getId();
-        Optional<User> user = userRepository.findById(userId);
-
-        if (movieRepository.findByExternalId(movieDto.getExternalId()) != null) {
-            return movieRepository.findByExternalId(movieDto.getExternalId()).getId();
+        User user = null;
+        Movie movie = null;
+        Optional<User> userOptional = userRepository.findById(userId);
+        if (userOptional.isPresent()) {
+            user = userOptional.get();
         }
-        Movie movie = movieConverter.toModel(movieDto);
-        movie.getUsers().add(user.get());
+        Optional<Movie> movieOptional = Optional.ofNullable(movieRepository.findByExternalId(movieDto.getExternalId()));
+        if (movieOptional.isPresent()) {
+            movie = movieOptional.get();
+            movieRepository.save(movie);
+        }
+
+
+        UserMovie userMovie = new UserMovie();
+        userMovie.setMovie(movie);
+
         return movieRepository.save(movie).getId();
     }
 
@@ -43,6 +53,7 @@ public class MovieServiceImpl implements MovieService {
         MovieDto movieDto = movieConverter.toDto(movie);
         return movieDto;
     }
+
     @Transactional
     @Override
     public void updateFavouriteMovie(MovieDto movieDto) {

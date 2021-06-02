@@ -3,12 +3,13 @@ package info.movietrash.cinemabase.converter.impl;
 import info.movietrash.cinemabase.converter.MovieConverter;
 import info.movietrash.cinemabase.dto.MovieDto;
 import info.movietrash.cinemabase.model.Movie;
+import lombok.NonNull;
 import org.springframework.stereotype.Component;
 
 @Component
 public class MovieConverterImpl implements MovieConverter {
     @Override
-    public Movie toModel(MovieDto movieDto) {
+    public Movie toModel(@NonNull MovieDto movieDto) {
         Movie movie = new Movie();
         movie.setTitle(movieDto.getTitle());
         movie.setExternalId(movieDto.getExternalId());

@@ -31,8 +31,4 @@ public class Profile extends BaseModel {
 
     @OneToOne(mappedBy = "profile")
     private User user;
-
-    @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<UserMovie> userMovies;
-
 }
