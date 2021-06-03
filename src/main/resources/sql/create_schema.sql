@@ -21,7 +21,7 @@ create table movie
     updated      timestamp                            null
 );
 
-create index moviee_id_index
+create index movie_id_index
     on movie (id);
 
 create table movie_genre
