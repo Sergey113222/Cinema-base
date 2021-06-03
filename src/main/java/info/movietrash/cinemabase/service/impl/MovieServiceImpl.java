@@ -41,6 +41,7 @@ public class MovieServiceImpl implements MovieService {
 
 
         UserMovie userMovie = new UserMovie();
+        userMovie.setUser(user);
         userMovie.setMovie(movie);
 
         return movieRepository.save(movie).getId();
