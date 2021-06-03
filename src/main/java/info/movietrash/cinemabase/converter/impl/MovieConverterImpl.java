@@ -12,7 +12,7 @@ public class MovieConverterImpl implements MovieConverter {
     public Movie toModel(@NonNull MovieDto movieDto) {
         Movie movie = new Movie();
         movie.setTitle(movieDto.getTitle());
-        movie.setExternalId(movieDto.getExternalId());
+        movie.setExternalId(movieDto.getExternalMovieId());
         movie.setPoster(movieDto.getPosterPath());
         movie.setPremierDate(movieDto.getReleaseDate());
         movie.setImdb(movieDto.getVoteAverage());
@@ -25,7 +25,7 @@ public class MovieConverterImpl implements MovieConverter {
     @Override
     public MovieDto toDto(Movie movie) {
         MovieDto movieDto = new MovieDto();
-        movieDto.setExternalId(movie.getExternalId());
+        movieDto.setExternalMovieId(movie.getExternalId());
         movieDto.setTitle(movie.getTitle());
         movieDto.setPosterPath(movie.getPoster());
         movieDto.setReleaseDate(movie.getPremierDate());

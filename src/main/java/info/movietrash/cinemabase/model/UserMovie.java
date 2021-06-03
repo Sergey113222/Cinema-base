@@ -9,10 +9,6 @@ import javax.persistence.*;
 @Table(name = "user_movie")
 public class UserMovie extends BaseModel {
 
-    @Column(name = "user_id")
-    private Long userId;
-    @Column(name = "movie_id")
-    private Long movieId;
     @Column(name = "rating")
     private Integer rating;
     @Column(name = "notes")
@@ -20,11 +16,9 @@ public class UserMovie extends BaseModel {
     @Column(name = "viewed")
     private boolean viewed;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "user_id")
+    @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "movie_id")
+    @ManyToOne(fetch = FetchType.LAZY)
     private Movie movie;
 }

@@ -14,7 +14,7 @@ import java.util.List;
 @JsonAutoDetect
 public class MovieDto {
     @JsonProperty("id")
-    private Long externalId;
+    private Long externalMovieId;
     private String title;
     @JsonProperty("poster_path")
     private String posterPath;
@@ -26,5 +26,7 @@ public class MovieDto {
     private Boolean adult;
     @JsonProperty("genre_ids")
     private List<Integer> genreIds;
-    private UserDto user;
+
+    private Integer personalRating;
+    private String personalNotes;
 }
