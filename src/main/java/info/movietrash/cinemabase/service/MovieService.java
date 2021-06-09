@@ -9,7 +9,7 @@ public interface MovieService {
 
     MovieDto fetchFavouriteMovieById(Long id);
 
-    void updateFavouriteMovie(MovieDto movieDto);
+    void updateFavouriteMovie(MovieDto movieDto, Long userMovieId);
 
     void deleteFavouriteMovie(Long id);
 }

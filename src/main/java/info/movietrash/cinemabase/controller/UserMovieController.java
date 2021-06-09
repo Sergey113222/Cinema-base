@@ -23,8 +23,8 @@ public class UserMovieController {
     }
 
     @PutMapping
-    public void updateFavouriteMovie(@RequestBody MovieDto movieDto) {
-        movieService.updateFavouriteMovie(movieDto);
+    public void updateFavouriteMovie(@RequestBody MovieDto movieDto, @RequestParam Long userMovieId) {
+        movieService.updateFavouriteMovie(movieDto, userMovieId);
     }
 
     @DeleteMapping("/{id}")

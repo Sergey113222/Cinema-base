@@ -14,4 +14,11 @@ public class UserDto {
     private String password;
     private Role role;
     private ProfileDto profileDto;
+
+//временно для запихивание пользователя вручную (пока нет секьюрити)
+    public UserDto(Long id, String username, String password) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+    }
 }

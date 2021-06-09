@@ -38,11 +38,9 @@ public class MovieServiceImpl implements MovieService {
         Optional<Movie> movieOptional = Optional.ofNullable(movieRepository.findByExternalId(movieDto.getExternalMovieId()));
         if (movieOptional.isPresent()) {
             movie = movieOptional.get();
-        }else {
-            movie = movieRepository.save(movie);
+        } else {
+            movie = movieRepository.save(movieConverter.toModel(movieDto));
         }
-
-
         UserMovie userMovie = new UserMovie();
         userMovie.setUser(user);
         userMovie.setMovie(movie);
@@ -54,32 +52,36 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public MovieDto fetchFavouriteMovieById(Long id) {
-        Movie movie = movieRepository.findById(id).orElseThrow(() ->
+        UserMovie userMovie = userMovieRepository.findById(id).orElseThrow(() ->
                 new IllegalArgumentException(String.format(ErrorMessages.RESOURCE_NOT_FOUND, Movie.class, id)));
-        MovieDto movieDto = movieConverter.toDto(movie);
+        MovieDto movieDto = new MovieDto();
+        movieDto.setExternalMovieId(userMovie.getMovie().getExternalId());
+        movieDto.setTitle(userMovie.getMovie().getTitle());
+        movieDto.setPosterPath(userMovie.getMovie().getPoster());
+        movieDto.setReleaseDate(userMovie.getMovie().getPremierDate());
+        movieDto.setVoteAverage(userMovie.getMovie().getImdb());
+        movieDto.setOverview(userMovie.getMovie().getDescription());
+        movieDto.setAdult(userMovie.getMovie().getAdult());
+        //movieDto.setGenreIds(userMovie.getMovie().getGenres());
+        movieDto.setPersonalRating(userMovie.getRating());
+        movieDto.setPersonalNotes(userMovie.getNotes());
         return movieDto;
     }
 
     @Transactional
     @Override
-    public void updateFavouriteMovie(MovieDto movieDto) {
-        Long id = (movieRepository.findByExternalId(movieDto.getExternalMovieId())).getId();
-        Movie existed = movieRepository.findById(id).orElseThrow(() ->
-                new IllegalArgumentException(String.format(ErrorMessages.RESOURCE_NOT_FOUND, User.class, id)));
-        existed.setTitle(movieDto.getTitle());
-        existed.setPoster(movieDto.getPosterPath());
-        existed.setPremierDate(movieDto.getReleaseDate());
-        existed.setImdb(movieDto.getVoteAverage());
-        existed.setDescription(movieDto.getOverview());
-        existed.setAdult(movieDto.getAdult());
-        existed.setExternalId(movieDto.getExternalMovieId());
-        movieRepository.save(existed);
+    public void updateFavouriteMovie(MovieDto movieDto, Long userMovieId) {
+        UserMovie userMovie = userMovieRepository.findById(userMovieId).orElseThrow(() ->
+                new IllegalArgumentException(String.format(ErrorMessages.RESOURCE_NOT_FOUND, User.class, userMovieId)));
+        userMovie.setRating(movieDto.getPersonalRating());
+        userMovie.setNotes(movieDto.getPersonalNotes());
+        userMovieRepository.save(userMovie);
     }
 
     @Override
     public void deleteFavouriteMovie(Long id) {
-        Movie movie = movieRepository.findById(id).orElseThrow(() ->
+        UserMovie userMovie = userMovieRepository.findById(id).orElseThrow(() ->
                 new IllegalArgumentException(String.format(ErrorMessages.RESOURCE_NOT_FOUND, Movie.class, id)));
-        movieRepository.delete(movie);
+        userMovieRepository.delete(userMovie);
     }
 }
