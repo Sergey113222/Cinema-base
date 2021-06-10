@@ -3,6 +3,7 @@ package info.movietrash.cinemabase.service.impl;
 import info.movietrash.cinemabase.converter.MovieConverter;
 import info.movietrash.cinemabase.dto.MovieDto;
 import info.movietrash.cinemabase.exception.ErrorMessages;
+import info.movietrash.cinemabase.exception.ResourceNotFoundException;
 import info.movietrash.cinemabase.model.Movie;
 import info.movietrash.cinemabase.model.User;
 import info.movietrash.cinemabase.model.UserMovie;
@@ -53,7 +54,7 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public MovieDto fetchFavouriteMovieById(Long id) {
         UserMovie userMovie = userMovieRepository.findById(id).orElseThrow(() ->
-                new IllegalArgumentException(String.format(ErrorMessages.RESOURCE_NOT_FOUND, Movie.class, id)));
+                new ResourceNotFoundException(String.format(ErrorMessages.RESOURCE_NOT_FOUND, id)));
         MovieDto movieDto = new MovieDto();
         movieDto.setExternalMovieId(userMovie.getMovie().getExternalId());
         movieDto.setTitle(userMovie.getMovie().getTitle());
@@ -72,7 +73,7 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public void updateFavouriteMovie(MovieDto movieDto, Long userMovieId) {
         UserMovie userMovie = userMovieRepository.findById(userMovieId).orElseThrow(() ->
-                new IllegalArgumentException(String.format(ErrorMessages.RESOURCE_NOT_FOUND, User.class, userMovieId)));
+                new ResourceNotFoundException(String.format(ErrorMessages.RESOURCE_NOT_FOUND, userMovieId)));
         userMovie.setRating(movieDto.getPersonalRating());
         userMovie.setNotes(movieDto.getPersonalNotes());
         userMovieRepository.save(userMovie);
@@ -81,7 +82,7 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public void deleteFavouriteMovie(Long id) {
         UserMovie userMovie = userMovieRepository.findById(id).orElseThrow(() ->
-                new IllegalArgumentException(String.format(ErrorMessages.RESOURCE_NOT_FOUND, Movie.class, id)));
+                new ResourceNotFoundException(String.format(ErrorMessages.RESOURCE_NOT_FOUND, id)));
         userMovieRepository.delete(userMovie);
     }
 }

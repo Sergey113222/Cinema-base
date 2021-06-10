@@ -3,7 +3,10 @@ package info.movietrash.cinemabase.controller;
 import info.movietrash.cinemabase.dto.MovieDto;
 import info.movietrash.cinemabase.service.MovieService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
 @AllArgsConstructor
@@ -13,22 +16,26 @@ public class UserMovieController {
     private final MovieService movieService;
 
     @PostMapping
-    public Long addToFavouriteMovie(@RequestBody MovieDto movieDto) {
-        return movieService.addToFavouriteMovies(movieDto);
+    public ResponseEntity<Long> addToFavouriteMovie(@RequestBody MovieDto movieDto) {
+        Long createdMovieDtoId = movieService.addToFavouriteMovies(movieDto);
+        return ResponseEntity.status(CREATED).body(createdMovieDtoId);
     }
 
     @GetMapping("/{id}")
-    public MovieDto findFavouriteMovieById(@PathVariable("id") Long id) {
-        return movieService.fetchFavouriteMovieById(id);
+    public ResponseEntity<MovieDto> findFavouriteMovieById(@PathVariable("id") Long id) {
+        MovieDto movieDto = movieService.fetchFavouriteMovieById(id);
+        return ResponseEntity.ok().body(movieDto);
     }
 
     @PutMapping
-    public void updateFavouriteMovie(@RequestBody MovieDto movieDto, @RequestParam Long userMovieId) {
+    public ResponseEntity<MovieDto> updateFavouriteMovie(@RequestBody MovieDto movieDto, @RequestParam Long userMovieId) {
         movieService.updateFavouriteMovie(movieDto, userMovieId);
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
-    public void deleteFavouriteMovie(@PathVariable("id") Long id) {
+    public ResponseEntity<MovieDto> deleteFavouriteMovie(@PathVariable("id") Long id) {
         movieService.deleteFavouriteMovie(id);
+        return ResponseEntity.noContent().build();
     }
 }
