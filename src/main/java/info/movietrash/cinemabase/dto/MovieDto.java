@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.*;
 import java.util.Date;
 import java.util.List;
 
@@ -27,7 +28,10 @@ public class MovieDto {
     @JsonProperty("genre_ids")
     private List<Integer> genreIds;
     @JsonProperty("personal_rating")
+    @Min(value = 0, message = "Rating should be between [0-10]")
+    @Max(value = 10, message = "Rating should be between [0-10]")
     private Integer personalRating;
+    @Pattern(regexp = ".{2,128}", message = "Notes should be between [2-128]")
     @JsonProperty("personal_notes")
     private String personalNotes;
 }
