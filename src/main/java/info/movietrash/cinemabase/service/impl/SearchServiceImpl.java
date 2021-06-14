@@ -28,6 +28,13 @@ public class SearchServiceImpl implements SearchService {
     private String scheme;
     @Value("${themoviedb.ord.host}")
     private String host;
+    @Value("${themoviedb.ord.path-search-movie-by-name}")
+    private String searchMovieByName;
+    @Value("${themoviedb.ord.path-search-movie-popular}")
+    private String searchMoviePopular;
+    @Value("${themoviedb.ord.path-search-movie-latest}")
+    private String searchMovieLatest;
+
 
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
@@ -43,10 +50,9 @@ public class SearchServiceImpl implements SearchService {
         URI uri = UriComponentsBuilder.newInstance()
                 .scheme(scheme)
                 .host(host)
-                .path("/3/search/movie")
+                .path(searchMovieByName)
                 .queryParam("api_key", apiKey)
                 .queryParam("query", dto.getQuery())
-                .queryParam("language", dto.getLang())
                 .build()
                 .toUri();
 
@@ -67,7 +73,7 @@ public class SearchServiceImpl implements SearchService {
         URI uri = UriComponentsBuilder.newInstance()
                 .scheme(scheme)
                 .host(host)
-                .path("/3/movie/popular")
+                .path(searchMoviePopular)
                 .queryParam("api_key", apiKey)
                 .build()
                 .toUri();
@@ -89,7 +95,7 @@ public class SearchServiceImpl implements SearchService {
         URI uri = UriComponentsBuilder.newInstance()
                 .scheme(scheme)
                 .host(host)
-                .path("/3/movie/latest")
+                .path(searchMovieLatest)
                 .queryParam("api_key", apiKey)
                 .build()
                 .toUri();

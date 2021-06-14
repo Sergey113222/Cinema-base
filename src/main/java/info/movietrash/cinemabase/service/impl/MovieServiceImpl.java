@@ -30,18 +30,12 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public Long addToFavouriteMovies(MovieDto movieDto) {
         Long userId = 1L;     // in my db have created user with id = 1
-        User user = null;
-        Movie movie = null;
-        Optional<User> userOptional = userRepository.findById(userId);
-        if (userOptional.isPresent()) {
-            user = userOptional.get();
-        }
+        User user = userRepository.findById(userId).orElseThrow(() ->
+                new ResourceNotFoundException(String.format(ErrorMessages.RESOURCE_NOT_FOUND, userId)));
+
         Optional<Movie> movieOptional = Optional.ofNullable(movieRepository.findByExternalId(movieDto.getExternalMovieId()));
-        if (movieOptional.isPresent()) {
-            movie = movieOptional.get();
-        } else {
-            movie = movieRepository.save(movieConverter.toModel(movieDto));
-        }
+        Movie movie = movieOptional.orElseGet(() -> movieRepository.save(movieConverter.toModel(movieDto)));
+
         UserMovie userMovie = new UserMovie();
         userMovie.setUser(user);
         userMovie.setMovie(movie);

@@ -20,10 +20,12 @@ public class SearchMovieController {
     public List<MovieDto> searchMoviesByName(@RequestBody SearchDto dto) throws JsonProcessingException {
         return searchService.searchMoviesByName(dto);
     }
+
     @GetMapping(value = "/popular")
     public List<MovieDto> searchMoviesPopular() throws JsonProcessingException {
         return searchService.searchMoviesPopular();
     }
+
     @GetMapping(value = "/latest")
     public MovieDto searchMovieLatest() throws JsonProcessingException {
         return searchService.searchMovieLatest();

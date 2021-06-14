@@ -30,6 +30,7 @@ public class UserServiceImpl implements UserService {
         UserDto userDto = userConverter.toDto(user);
         return userDto;
     }
+
     @Transactional
     @Override
     public void updateUser(UserDto userDto) {
