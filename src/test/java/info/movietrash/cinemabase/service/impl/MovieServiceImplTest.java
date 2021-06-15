@@ -70,7 +70,7 @@ class MovieServiceImplTest {
         movieDto.setPersonalNotes("YoO!!!");
 
         when(userRepository.findById(any())).thenReturn(Optional.ofNullable(user));
-        when(movieRepository.findByExternalId(any())).thenReturn(movie);
+        when(movieRepository.findByExternalId(any())).thenReturn(Optional.ofNullable(movie));
         UserMovie userMovie = new UserMovie();
         userMovie.setId(55L);
         when(userMovieRepository.save(any())).thenReturn(userMovie);

@@ -1,6 +1,5 @@
 package info.movietrash.cinemabase.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import info.movietrash.cinemabase.dto.MovieDto;
 import info.movietrash.cinemabase.dto.SearchDto;
 
@@ -8,9 +7,9 @@ import java.util.List;
 
 public interface SearchService {
 
-    List<MovieDto> searchMoviesByName(SearchDto dto) throws JsonProcessingException;
+    List<MovieDto> searchMoviesByName(SearchDto dto);
 
-    List<MovieDto> searchMoviesPopular() throws JsonProcessingException;
+    List<MovieDto> searchMoviesPopular();
 
-    MovieDto searchMovieLatest() throws JsonProcessingException;
+    MovieDto searchMovieLatest();
 }

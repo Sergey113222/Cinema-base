@@ -51,7 +51,7 @@ public class AopExceptionHandler {
             String errorMessage = error.getDefaultMessage();
             ExceptionDto exceptionDto = new ExceptionDto();
             exceptionDto.setErrorMessage(String.format("%s - %s", fieldName, errorMessage));
-            exceptionDto.setStatus(4001);
+            exceptionDto.setStatus(401);
             exceptionDto.setTimestamp(LocalDateTime.now());
             exceptionDtoList.add(exceptionDto);
         });
