@@ -10,7 +10,7 @@ import javax.validation.constraints.Pattern;
 @Setter
 public class SearchDto {
     @NotBlank
-    @Pattern(regexp = "\\w{2,64}")
+    @Pattern(regexp = "\\w{1,64}", message = "query should be between [1-64]")
     private String query;
     private String lang = "en-US";
     private boolean includeAdult;

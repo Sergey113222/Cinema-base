@@ -29,6 +29,7 @@ public class SearchServiceImpl implements SearchService {
 
     private static final String JSON_NODE_STR = "results";
     private static final String API_KEY = "api_key";
+    private static final String QUERY = "query";
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
 
@@ -52,7 +53,7 @@ public class SearchServiceImpl implements SearchService {
 
     @Override
     public List<MovieDto> searchMoviesByName(@Valid SearchDto dto) {
-        URI uri = createURI(searchMovieByName).build().toUri();
+        URI uri = createURI(searchMovieByName).queryParam(QUERY, dto.getQuery()).build().toUri();
         return getMovieFromResource(uri);
     }
 
