@@ -31,7 +31,7 @@ public class UserMovieController {
     }
 
     @PutMapping
-    public ResponseEntity<MovieDto> updateFavouriteMovie(@RequestBody @Min(1) MovieDto movieDto, @RequestParam @Valid Long userMovieId) {
+    public ResponseEntity<MovieDto> updateFavouriteMovie(@RequestBody @Valid MovieDto movieDto, @RequestParam @Min(1) Long userMovieId) {
         movieService.updateFavouriteMovie(movieDto, userMovieId);
         return ResponseEntity.noContent().build();
     }

@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -52,7 +51,7 @@ public class SearchServiceImpl implements SearchService {
     private String searchMovieLatest;
 
     @Override
-    public List<MovieDto> searchMoviesByName(@Valid SearchDto dto) {
+    public List<MovieDto> searchMoviesByName(SearchDto dto) {
         URI uri = createURI(searchMovieByName).queryParam(QUERY, dto.getQuery()).build().toUri();
         return getMovieFromResource(uri);
     }

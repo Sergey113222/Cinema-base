@@ -57,4 +57,17 @@ public class AopExceptionHandler {
         });
         return ResponseEntity.badRequest().body(exceptionDtoList);
     }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<ExceptionDto> handleRuntimeExceptions(
+            RuntimeException ex) {
+        ExceptionDto exceptionDto = new ExceptionDto();
+        exceptionDto.setErrorMessage(ex.getMessage());
+        exceptionDto.setStatus(BAD_REQUEST.value());
+        exceptionDto.setTimestamp(LocalDateTime.now());
+
+        log.error("Caught RuntimeException exception exception: {}", ex.getMessage());
+
+        return ResponseEntity.status(BAD_REQUEST).body(exceptionDto);
+    }
 }
