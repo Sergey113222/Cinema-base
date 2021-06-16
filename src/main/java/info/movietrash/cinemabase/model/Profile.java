@@ -1,9 +1,14 @@
 package info.movietrash.cinemabase.model;
 
-import javax.persistence.*;
-import java.util.List;
+import lombok.Data;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
+@Data
 @Table(name = "profile")
 public class Profile extends BaseModel {
 
@@ -11,7 +16,7 @@ public class Profile extends BaseModel {
     private String avatar;
     @Column(name = "about")
     private String about;
-    @Column (name = "email")
+    @Column(name = "email")
     private String email;
     @Column(name = "first_name")
     private String firstName;
@@ -28,8 +33,4 @@ public class Profile extends BaseModel {
 
     @OneToOne(mappedBy = "profile")
     private User user;
-
-    @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<UserMovie> userMovies;
-
 }

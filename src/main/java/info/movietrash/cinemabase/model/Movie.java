@@ -1,12 +1,14 @@
 package info.movietrash.cinemabase.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "movie")
 public class Movie extends BaseModel {
 
@@ -22,12 +24,14 @@ public class Movie extends BaseModel {
     private String description;
     @Column(name = "is_adult")
     private Boolean adult;
+    @Column(name = "external_id")
+    private Long externalId;
 
-    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @JoinTable(name = "movie_genre",
             joinColumns = {@JoinColumn(name = "movie_id")},
             inverseJoinColumns = {@JoinColumn(name = "genre_id")})
-    private Set<Genre> genres = new HashSet<>();
+    private List<Genre> genres = new ArrayList<>();
 
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<UserMovie> userMovies;

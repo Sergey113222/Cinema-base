@@ -1,11 +1,15 @@
 package info.movietrash.cinemabase.model;
 
-import lombok.Builder;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "user_movie")
 public class UserMovie extends BaseModel {
 
@@ -17,7 +21,7 @@ public class UserMovie extends BaseModel {
     private boolean viewed;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Profile profile;
+    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Movie movie;
