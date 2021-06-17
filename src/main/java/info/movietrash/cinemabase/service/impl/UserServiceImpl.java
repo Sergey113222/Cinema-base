@@ -42,11 +42,9 @@ public class UserServiceImpl implements UserService {
         userRepository.save(existed);
     }
 
+    @Transactional
     @Override
     public void deleteUser(Long id) {
-        User user = userRepository.findById(id).orElseThrow(() ->
-                new IllegalArgumentException(String.format(ErrorMessages.RESOURCE_NOT_FOUND, User.class, id)));
-        user.setActive(false);
-        userRepository.save(user);
+        userRepository.updateUser(id);
     }
 }

@@ -59,7 +59,6 @@ class UserServiceImplTest {
 
     @Test
     void updateUser() {
-        UserDto checkedUserDto = new UserDto(2L, "NEW_SSS", "S123456");
         when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
         when(userConverter.toDto(any())).thenReturn(new UserDto(2L, "Maxim", "G113222"));
         UserDto userDto = userService.findUserById(user.getId());
