@@ -1,8 +1,7 @@
 package info.movietrash.cinemabase.service.impl;
 
 import info.movietrash.cinemabase.converter.MovieConverter;
-import info.movietrash.cinemabase.converter.UserMovieConverterFromUserAndMovieAndMovieDto;
-import info.movietrash.cinemabase.converter.UserMovieConverterToMovieDto;
+import info.movietrash.cinemabase.converter.UserMovieConverter;
 import info.movietrash.cinemabase.dto.MovieDto;
 import info.movietrash.cinemabase.model.Movie;
 import info.movietrash.cinemabase.model.User;
@@ -27,8 +26,7 @@ class MovieServiceImplTest {
     UserRepository userRepository;
     MovieServiceImpl movieService;
     MovieConverter movieConverter;
-    UserMovieConverterToMovieDto convertUserMovieToMovieDto;
-    UserMovieConverterFromUserAndMovieAndMovieDto userMovieConverterFromUserAndMovieAndMovieDto;
+    UserMovieConverter userMovieConverter;
     UserMovie userMovie;
     User user;
     Movie movie;
@@ -63,8 +61,8 @@ class MovieServiceImplTest {
         movieRepository = mock(MovieRepository.class);
         userRepository = mock(UserRepository.class);
         userMovieRepository = mock(UserMovieRepository.class);
-        movieService = new MovieServiceImpl(movieRepository, userMovieRepository, movieConverter, userRepository,
-                convertUserMovieToMovieDto, userMovieConverterFromUserAndMovieAndMovieDto);
+        movieService = new MovieServiceImpl(movieRepository, userMovieRepository, movieConverter,
+                userRepository, userMovieConverter);
     }
 
     @Test

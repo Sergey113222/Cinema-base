@@ -1,8 +1,7 @@
 package info.movietrash.cinemabase.service.impl;
 
 import info.movietrash.cinemabase.converter.MovieConverter;
-import info.movietrash.cinemabase.converter.UserMovieConverterFromUserAndMovieAndMovieDto;
-import info.movietrash.cinemabase.converter.UserMovieConverterToMovieDto;
+import info.movietrash.cinemabase.converter.UserMovieConverter;
 import info.movietrash.cinemabase.dto.MovieDto;
 import info.movietrash.cinemabase.exception.ErrorMessages;
 import info.movietrash.cinemabase.exception.ResourceNotFoundException;
@@ -25,8 +24,7 @@ public class MovieServiceImpl implements MovieService {
     private final UserMovieRepository userMovieRepository;
     private final MovieConverter movieConverter;
     private final UserRepository userRepository;
-    private final UserMovieConverterToMovieDto convertUserMovieToMovieDto;
-    private final UserMovieConverterFromUserAndMovieAndMovieDto userMovieConverterFromUserAndMovieAndMovieDto;
+    private final UserMovieConverter userMovieConverter;
 
     @Transactional
     @Override
@@ -41,7 +39,7 @@ public class MovieServiceImpl implements MovieService {
                 .findByExternalId(movieDto.getExternalMovieId())
                 .orElseGet(() -> movieRepository.save(movieConverter.toModel(movieDto)));
 
-        return userMovieRepository.save(userMovieConverterFromUserAndMovieAndMovieDto.createUserMovie(user, movie, movieDto)).getId();
+        return userMovieRepository.save(userMovieConverter.createUserMovie(user, movie, movieDto)).getId();
     }
 
     @Override
@@ -49,7 +47,7 @@ public class MovieServiceImpl implements MovieService {
         UserMovie userMovie = userMovieRepository.findById(id).orElseThrow(() ->
                 new ResourceNotFoundException(String.format(ErrorMessages.RESOURCE_NOT_FOUND, id)));
 
-        return convertUserMovieToMovieDto.convertUserMovieToMovieDto(userMovie);
+        return userMovieConverter.convertUserMovieToMovieDto(userMovie);
     }
 
     @Transactional
