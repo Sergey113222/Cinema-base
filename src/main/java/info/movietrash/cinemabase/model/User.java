@@ -31,7 +31,6 @@ public class User extends BaseModel {
     @Column(name = "active")
     @Getter
     @Setter
-    @AssertTrue
     private Boolean active = true;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
