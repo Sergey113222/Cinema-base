@@ -7,6 +7,9 @@ import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 @AllArgsConstructor
 public class UserConverterImpl implements UserConverter {
@@ -35,5 +38,18 @@ public class UserConverterImpl implements UserConverter {
         userDto.setRole(user.getRole());
         userDto.setProfileDto(profileConverter.toDto(user.getProfile()));
         return userDto;
+    }
+
+    @Override
+    public List<UserDto> toDtoList(List<User> userList) {
+        return userList.stream().map(user -> {
+            UserDto userDto = new UserDto();
+            userDto.setId(user.getId());
+            userDto.setUsername(user.getUsername());
+            userDto.setPassword(user.getPassword());
+            userDto.setRole(user.getRole());
+            userDto.setProfileDto(profileConverter.toDto(user.getProfile()));
+            return userDto;
+        }).collect(Collectors.toList());
     }
 }

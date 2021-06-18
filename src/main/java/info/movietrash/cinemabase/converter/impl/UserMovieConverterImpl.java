@@ -5,11 +5,9 @@ import info.movietrash.cinemabase.dto.MovieDto;
 import info.movietrash.cinemabase.model.Movie;
 import info.movietrash.cinemabase.model.User;
 import info.movietrash.cinemabase.model.UserMovie;
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
-@AllArgsConstructor
 public class UserMovieConverterImpl implements UserMovieConverter {
 
     @Override

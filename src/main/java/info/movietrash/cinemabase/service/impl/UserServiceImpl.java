@@ -7,8 +7,11 @@ import info.movietrash.cinemabase.model.User;
 import info.movietrash.cinemabase.repository.UserRepository;
 import info.movietrash.cinemabase.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -24,11 +27,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<UserDto> findAllUsers() {
+        return userConverter.toDtoList(userRepository.findAll(Sort.by(Sort.Direction.ASC, "username")));
+    }
+
+    @Override
     public UserDto findUserById(Long id) {
         User user = userRepository.findById(id).orElseThrow(() ->
                 new IllegalArgumentException(String.format(ErrorMessages.RESOURCE_NOT_FOUND, User.class, id)));
-        UserDto userDto = userConverter.toDto(user);
-        return userDto;
+        return userConverter.toDto(user);
     }
 
     @Transactional

@@ -69,10 +69,8 @@ class UserServiceImplTest {
 
     @Test
     void deleteUserById() {
-        when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
-        userService.deleteUser(2L);
-
-        assertEquals(false, user.getActive());
+        userService.deleteUser(user.getId());
+        verify(userRepository).updateUser(user.getId());
     }
 
     @Test
