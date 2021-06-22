@@ -15,7 +15,7 @@ public class GenreConverterImpl implements GenreConverter {
 
         return externalGenreDtoList.stream().map(externalGenreDto -> {
             Genre genre = new Genre();
-            genre.setId(externalGenreDto.getExternalId());
+            genre.setExternalId(externalGenreDto.getExternalId());
             genre.setName(externalGenreDto.getName());
             return genre;
         }).collect(Collectors.toList());

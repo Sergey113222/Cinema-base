@@ -2,10 +2,14 @@ package info.movietrash.cinemabase.converter.impl;
 
 import info.movietrash.cinemabase.converter.UserMovieConverter;
 import info.movietrash.cinemabase.dto.MovieDto;
+import info.movietrash.cinemabase.model.Genre;
 import info.movietrash.cinemabase.model.Movie;
 import info.movietrash.cinemabase.model.User;
 import info.movietrash.cinemabase.model.UserMovie;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class UserMovieConverterImpl implements UserMovieConverter {
@@ -30,7 +34,13 @@ public class UserMovieConverterImpl implements UserMovieConverter {
         movieDto.setVoteAverage(userMovie.getMovie().getImdb());
         movieDto.setOverview(userMovie.getMovie().getDescription());
         movieDto.setAdult(userMovie.getMovie().getAdult());
-        //movieDto.setGenreIds(userMovie.getMovie().getGenres());
+
+        List<Long> genresIds = new ArrayList<>();
+        for (Genre genre : userMovie.getMovie().getGenres()) {
+            genresIds.add(genre.getExternalId());
+        }
+        movieDto.setGenreIds(genresIds);
+
         movieDto.setPersonalRating(userMovie.getRating());
         movieDto.setPersonalNotes(userMovie.getNotes());
         return movieDto;
