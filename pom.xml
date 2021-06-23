@@ -15,7 +15,11 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>cinema-base</name>
-    <description>Project for Spring Boot App</description>
+    <description>Project for Spring Boot App. Working together with TheMovieDB Api.
+        To search, view movie descriptions, add reviews and save your favorite movies.
+        Technologies used (Rest, Data JPA, MySql, Liquibase, Spring Security JWT, Junit,
+        Mockito, ExceptionHandler, Validation)
+    </description>
 
     <properties>
         <java.version>8</java.version>

@@ -24,30 +24,37 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class GenreServiceImpl {
-    @Value("${themoviedb.ord.api-key}")
-    private String apiKey;
-    @Value("${themoviedb.ord.scheme}")
-    private String scheme;
-    @Value("${themoviedb.ord.host}")
-    private String host;
 
+    private static final String JSON_NODE_STR = "genres";
+    private static final String API_KEY = "api_key";
     private final GenreRepository genreRepository;
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
     private final GenreConverter genreConverter;
-    private final static String JSON_NODE_STR = "genres";
+
+    @Value("${themoviedb.ord.api-key}")
+    private String apiKey;
+
+    @Value("${themoviedb.ord.scheme}")
+    private String scheme;
+
+    @Value("${themoviedb.ord.host}")
+    private String host;
+
+    @Value("${themoviedb.ord.path-get-movie-genre-list}")
+    private String getMovieGenreList;
 
     public void getGenresExternal() throws JsonProcessingException {
         URI uri = UriComponentsBuilder.newInstance()
                 .scheme(scheme)
                 .host(host)
-                .path("/3/genre/movie/list")
-                .queryParam("api_key", apiKey)
+                .path(getMovieGenreList)
+                .queryParam(API_KEY, apiKey)
                 .build()
                 .toUri();
 
         if (genreRepository.count() == 0) {
-            RequestEntity request = new RequestEntity(HttpMethod.GET, uri);
+            RequestEntity<String> request = new RequestEntity<>(HttpMethod.GET, uri);
             ResponseEntity<String> response = restTemplate.exchange(request, String.class);
             String genresJson = response.getBody();
             objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);

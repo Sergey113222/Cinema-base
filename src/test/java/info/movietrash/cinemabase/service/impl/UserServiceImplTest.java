@@ -11,16 +11,17 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 class UserServiceImplTest {
 
-    UserConverter userConverter;
-    UserService userService;
-    UserRepository userRepository;
-    User user;
+    private UserConverter userConverter;
+    private UserService userService;
+    private UserRepository userRepository;
+    private User user;
 
     {
         user = new User();
@@ -71,11 +72,6 @@ class UserServiceImplTest {
     void deleteUserById() {
         userService.deleteUser(user.getId());
         verify(userRepository).updateUser(user.getId());
-    }
-
-    @Test
-    void if_user_not_found_when_delete_then_exception_thrown() {
-        assertThrows(IllegalArgumentException.class, () -> userService.deleteUser(3L));
     }
 }
 

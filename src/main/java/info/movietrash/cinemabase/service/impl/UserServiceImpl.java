@@ -3,6 +3,7 @@ package info.movietrash.cinemabase.service.impl;
 import info.movietrash.cinemabase.converter.UserConverter;
 import info.movietrash.cinemabase.dto.UserDto;
 import info.movietrash.cinemabase.exception.ErrorMessages;
+import info.movietrash.cinemabase.exception.ResourceNotFoundException;
 import info.movietrash.cinemabase.model.User;
 import info.movietrash.cinemabase.repository.UserRepository;
 import info.movietrash.cinemabase.service.UserService;
@@ -34,7 +35,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto findUserById(Long id) {
         User user = userRepository.findById(id).orElseThrow(() ->
-                new IllegalArgumentException(String.format(ErrorMessages.RESOURCE_NOT_FOUND, User.class, id)));
+                new ResourceNotFoundException(String.format(ErrorMessages.RESOURCE_NOT_FOUND, User.class, id)));
         return userConverter.toDto(user);
     }
 
@@ -43,7 +44,7 @@ public class UserServiceImpl implements UserService {
     public void updateUser(UserDto userDto) {
         Long id = userDto.getId();
         User existed = userRepository.findById(id).orElseThrow(() ->
-                new IllegalArgumentException(String.format(ErrorMessages.RESOURCE_NOT_FOUND, User.class, id)));
+                new ResourceNotFoundException(String.format(ErrorMessages.RESOURCE_NOT_FOUND, User.class, id)));
         existed.setUsername(userDto.getUsername());
         existed.setPassword((userDto.getPassword()));
         userRepository.save(existed);

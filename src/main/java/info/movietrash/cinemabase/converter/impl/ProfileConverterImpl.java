@@ -35,6 +35,6 @@ public class ProfileConverterImpl implements ProfileConverter {
         profileDto.setGender(profile.getGender());
         profileDto.setRegion(profile.getRegion());
         profileDto.setLanguage(profile.getLanguage());
-        return null;
+        return profileDto;
     }
 }
