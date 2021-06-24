@@ -3,13 +3,15 @@ package info.movietrash.cinemabase.converter.impl;
 import info.movietrash.cinemabase.converter.ProfileConverter;
 import info.movietrash.cinemabase.dto.ProfileDto;
 import info.movietrash.cinemabase.model.Profile;
-import lombok.NonNull;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ProfileConverterImpl implements ProfileConverter {
     @Override
-    public Profile toModel(@NonNull ProfileDto profileDto) {
+    public Profile toModel(ProfileDto profileDto) {
+        if (profileDto == null) {
+            return null;
+        }
         Profile profile = new Profile();
         profile.setAvatar(profileDto.getAvatar());
         profile.setAbout(profileDto.getAbout());
@@ -25,6 +27,9 @@ public class ProfileConverterImpl implements ProfileConverter {
 
     @Override
     public ProfileDto toDto(Profile profile) {
+        if (profile == null) {
+            return null;
+        }
         ProfileDto profileDto = new ProfileDto();
         profileDto.setAvatar(profile.getAvatar());
         profileDto.setAbout(profile.getAbout());

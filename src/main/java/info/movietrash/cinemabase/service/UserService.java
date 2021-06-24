@@ -10,7 +10,7 @@ public interface UserService {
 
     Long createUser(UserDto userDto);
 
-    List<UserDto> findAllUsers();
+    List<UserDto> findAllUsers(String sortDirection, String sortColumn);
 
     UserDto findUserById(Long id);
 

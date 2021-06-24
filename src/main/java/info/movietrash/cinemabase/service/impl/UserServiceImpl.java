@@ -1,5 +1,6 @@
 package info.movietrash.cinemabase.service.impl;
 
+import info.movietrash.cinemabase.converter.DirectionConverter;
 import info.movietrash.cinemabase.converter.UserConverter;
 import info.movietrash.cinemabase.dto.UserDto;
 import info.movietrash.cinemabase.exception.ErrorMessages;
@@ -20,6 +21,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserConverter userConverter;
+    private final DirectionConverter directionConverter;
 
     @Transactional
     @Override
@@ -28,8 +30,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDto> findAllUsers() {
-        return userConverter.toDtoList(userRepository.findAll(Sort.by(Sort.Direction.ASC, "username")));
+    public List<UserDto> findAllUsers(String sortDirection, String sortColumn) {
+        return userConverter.toDtoList(userRepository.findAll(
+                Sort.by(directionConverter.replaceStringThroughDirection(sortDirection), sortColumn)));
     }
 
     @Override

@@ -1,6 +1,7 @@
 package info.movietrash.cinemabase.service.impl;
 
 
+import info.movietrash.cinemabase.converter.DirectionConverter;
 import info.movietrash.cinemabase.converter.UserConverter;
 import info.movietrash.cinemabase.dto.UserDto;
 import info.movietrash.cinemabase.model.User;
@@ -21,6 +22,7 @@ class UserServiceImplTest {
     private UserConverter userConverter;
     private UserService userService;
     private UserRepository userRepository;
+    private DirectionConverter directionConverter;
     private User user;
 
     {
@@ -35,7 +37,7 @@ class UserServiceImplTest {
     void setUp() {
         userRepository = mock(UserRepository.class);
         userConverter = mock(UserConverter.class);
-        userService = new UserServiceImpl(userRepository, userConverter);
+        userService = new UserServiceImpl(userRepository, userConverter, directionConverter);
     }
 
     @Test

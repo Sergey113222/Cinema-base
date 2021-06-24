@@ -43,7 +43,7 @@ public class MovieConverterImpl implements MovieConverter {
     }
 
     @Override
-    public MovieDto toDto(Movie movie) {
+    public MovieDto toDto(@NonNull Movie movie) {
         MovieDto movieDto = new MovieDto();
         movieDto.setExternalMovieId(movie.getExternalId());
         movieDto.setTitle(movie.getTitle());

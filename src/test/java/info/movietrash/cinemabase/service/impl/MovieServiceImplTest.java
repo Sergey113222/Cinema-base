@@ -28,14 +28,13 @@ class MovieServiceImplTest {
     private MovieRepository movieRepository;
     private UserRepository userRepository;
     private MovieServiceImpl movieService;
-    protected MovieConverter movieConverter;
-    protected UserMovieConverter userMovieConverter;
-    private UserMovie userMovie;
-    private User user;
-    private Movie movie;
-    private Genre genre;
-    private MovieDto movieDto;
-
+    private MovieConverter movieConverter;
+    private UserMovieConverter userMovieConverter;
+    private final UserMovie userMovie;
+    private final User user;
+    private final Movie movie;
+    private final Genre genre;
+    private final MovieDto movieDto;
 
     {
         user = new User();

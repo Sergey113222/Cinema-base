@@ -20,9 +20,12 @@ public class UserController {
         UserDto userDto = userService.findUserById(id);
         return ResponseEntity.ok().body(userDto);
     }
+
     @GetMapping
-    public ResponseEntity<List<UserDto>> findAllUsersSortedByUsername() {
-        List<UserDto> userDtoList= userService.findAllUsers();
+    public ResponseEntity<List<UserDto>> findAllUsersSorted(
+            @RequestParam String sortDirection,
+            @RequestParam String sortColumn) {
+        List<UserDto> userDtoList = userService.findAllUsers(sortDirection, sortColumn);
         return ResponseEntity.ok().body(userDtoList);
     }
 
