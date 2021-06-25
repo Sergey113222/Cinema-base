@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto findUserById(Long id) {
         User user = userRepository.findById(id).orElseThrow(() ->
-                new ResourceNotFoundException(String.format(ErrorMessages.RESOURCE_NOT_FOUND, User.class, id)));
+                new ResourceNotFoundException(String.format(ErrorMessages.RESOURCE_NOT_FOUND, id)));
         return userConverter.toDto(user);
     }
 
@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
     public void updateUser(UserDto userDto) {
         Long id = userDto.getId();
         User existed = userRepository.findById(id).orElseThrow(() ->
-                new ResourceNotFoundException(String.format(ErrorMessages.RESOURCE_NOT_FOUND, User.class, id)));
+                new ResourceNotFoundException(String.format(ErrorMessages.RESOURCE_NOT_FOUND, id)));
         existed.setUsername(userDto.getUsername());
         existed.setPassword((userDto.getPassword()));
         userRepository.save(existed);

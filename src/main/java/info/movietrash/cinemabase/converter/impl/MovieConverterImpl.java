@@ -8,7 +8,6 @@ import info.movietrash.cinemabase.model.Genre;
 import info.movietrash.cinemabase.model.Movie;
 import info.movietrash.cinemabase.repository.GenreRepository;
 import lombok.AllArgsConstructor;
-import lombok.NonNull;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -21,7 +20,10 @@ public class MovieConverterImpl implements MovieConverter {
     private final GenreRepository genreRepository;
 
     @Override
-    public Movie toModel(@NonNull MovieDto movieDto) {
+    public Movie toModel(MovieDto movieDto) {
+        if (movieDto == null) {
+            return null;
+        }
         Movie movie = new Movie();
         movie.setTitle(movieDto.getTitle());
         movie.setExternalId(movieDto.getExternalMovieId());
@@ -43,7 +45,10 @@ public class MovieConverterImpl implements MovieConverter {
     }
 
     @Override
-    public MovieDto toDto(@NonNull Movie movie) {
+    public MovieDto toDto(Movie movie) {
+        if (movie == null) {
+            return null;
+        }
         MovieDto movieDto = new MovieDto();
         movieDto.setExternalMovieId(movie.getExternalId());
         movieDto.setTitle(movie.getTitle());

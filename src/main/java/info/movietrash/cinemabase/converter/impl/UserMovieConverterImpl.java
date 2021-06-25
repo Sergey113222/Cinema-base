@@ -6,7 +6,6 @@ import info.movietrash.cinemabase.model.Genre;
 import info.movietrash.cinemabase.model.Movie;
 import info.movietrash.cinemabase.model.User;
 import info.movietrash.cinemabase.model.UserMovie;
-import lombok.NonNull;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -16,7 +15,10 @@ import java.util.List;
 public class UserMovieConverterImpl implements UserMovieConverter {
 
     @Override
-    public UserMovie createUserMovie(@NonNull User user, @NonNull Movie movie, @NonNull MovieDto movieDto) {
+    public UserMovie createUserMovie(User user, Movie movie, MovieDto movieDto) {
+        if ((user == null) || (movie == null) || (movieDto == null)) {
+            return null;
+        }
         UserMovie userMovie = new UserMovie();
         userMovie.setUser(user);
         userMovie.setMovie(movie);
@@ -26,7 +28,10 @@ public class UserMovieConverterImpl implements UserMovieConverter {
     }
 
     @Override
-    public MovieDto convertUserMovieToMovieDto(@NonNull UserMovie userMovie) {
+    public MovieDto convertUserMovieToMovieDto(UserMovie userMovie) {
+        if (userMovie == null) {
+            return null;
+        }
         MovieDto movieDto = new MovieDto();
         movieDto.setExternalMovieId(userMovie.getMovie().getExternalId());
         movieDto.setTitle(userMovie.getMovie().getTitle());

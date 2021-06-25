@@ -1,6 +1,6 @@
 package info.movietrash.cinemabase.repository;
 
-import info.movietrash.cinemabase.model.Genre;
+import info.movietrash.cinemabase.model.Movie;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -13,21 +13,21 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.context.jdbc.Sql.ExecutionPhase.BEFORE_TEST_METHOD;
 
 @SpringBootTest
-class GenreRepositoryTest {
+class MovieRepositoryTest {
     @Autowired
-    private GenreRepository genreRepository;
+    private MovieRepository movieRepository;
 
-    @Sql(scripts = "classpath:/sql/genre.sql", executionPhase = BEFORE_TEST_METHOD)
+    @Sql(scripts = "classpath:/sql/movie.sql", executionPhase = BEFORE_TEST_METHOD)
     @Test
     void findByExternalId() {
         //Given
-        long externalId = 9999999L;
+        long externalId = 8888888L;
         //when
-        Optional<Genre> optionalGenre = genreRepository.findByExternalId(externalId);
+        Optional<Movie> optionalMovie = movieRepository.findByExternalId(externalId);
         //then
-        assertTrue(optionalGenre.isPresent());
-        Genre genre = optionalGenre.get();
-        assertEquals(9999999L, genre.getExternalId());
+        assertTrue(optionalMovie.isPresent());
+        Movie movie = optionalMovie.get();
+        assertEquals(8888888L, movie.getExternalId());
 
     }
 }

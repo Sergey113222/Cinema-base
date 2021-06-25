@@ -9,8 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
 class UserConverterImplTest {
@@ -22,7 +21,7 @@ class UserConverterImplTest {
 
     {
         user = new User();
-        user.setId(1l);
+        user.setId(1L);
         user.setUsername("Max");
         user.setPassword("G113212");
         user.setActive(true);
@@ -30,7 +29,7 @@ class UserConverterImplTest {
 
     {
         userDto = new UserDto();
-        userDto.setId(2l);
+        userDto.setId(2L);
         userDto.setUsername("Maxim");
         userDto.setPassword("G113222");
     }
@@ -39,6 +38,12 @@ class UserConverterImplTest {
     void setUp() {
         profileConverter = mock(ProfileConverterImpl.class);
         userConverter = new UserConverterImpl(profileConverter);
+    }
+
+    @Test
+    void toDtoCheckNpeHandling() {
+        UserDto userDto = userConverter.toDto(null);
+        assertNull(userDto);
     }
 
     @Test

@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 
 @Component
 @AllArgsConstructor
-
 public class UserConverterImpl implements UserConverter {
 
     private final ProfileConverterImpl profileConverter;
