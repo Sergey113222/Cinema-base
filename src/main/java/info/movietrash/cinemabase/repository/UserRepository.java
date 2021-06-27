@@ -9,7 +9,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
-
 public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("select u from User u where u.active = true and u.id = :id")
@@ -20,7 +19,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     void updateUser(@Param("id") Long id);
 
     Page<User> findAll(Pageable pageable);
-
-    Page<User> findByUsername(String role, Pageable pageable);
 
 }

@@ -79,12 +79,12 @@ public class SearchServiceImpl implements SearchService {
 
     private List<MovieDto> getMovieFromResource(URI uri) {
         try {
-            RequestEntity<Object> request = new RequestEntity(HttpMethod.GET, uri);
+            RequestEntity request = new RequestEntity(HttpMethod.GET, uri);
             ResponseEntity<String> response = restTemplate.exchange(request, String.class);
             objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
             JsonNode responseBody = objectMapper.readTree(response.getBody());
             JsonNode resultsMassive = responseBody.path(JSON_NODE_STR);
-            return objectMapper.readValue(resultsMassive.toString(), new TypeReference<List<MovieDto>>() {
+            return objectMapper.readValue(resultsMassive.toString(), new TypeReference<>() {
             });
         } catch (Exception e) {
             log.error(String.format("Can't get movie from resource. %s", e.getMessage()));

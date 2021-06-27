@@ -15,9 +15,8 @@ import static org.mockito.Mockito.mock;
 class UserConverterImplTest {
 
     private UserConverter userConverter;
-    private ProfileConverterImpl profileConverter;
-    private User user;
-    private UserDto userDto;
+    private final User user;
+    private final UserDto userDto;
 
     {
         user = new User();
@@ -36,7 +35,7 @@ class UserConverterImplTest {
 
     @BeforeEach
     void setUp() {
-        profileConverter = mock(ProfileConverterImpl.class);
+        ProfileConverterImpl profileConverter = mock(ProfileConverterImpl.class);
         userConverter = new UserConverterImpl(profileConverter);
     }
 

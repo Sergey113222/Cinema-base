@@ -19,7 +19,6 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 class MovieServiceImplTest {
@@ -38,7 +37,7 @@ class MovieServiceImplTest {
 
     {
         user = new User();
-        user.setId(2l);
+        user.setId(2L);
         user.setUsername("Maxim");
         user.setPassword("G113222");
     }
@@ -122,7 +121,7 @@ class MovieServiceImplTest {
     @Test
     void deleteFavouriteMovie() {
         when(userMovieRepository.findById(userMovie.getId())).thenReturn(Optional.of(userMovie));
-        movieService.deleteFavouriteMovie(1l);
+        movieService.deleteFavouriteMovie(1L);
 
         verify(userMovieRepository).delete(userMovie);
     }

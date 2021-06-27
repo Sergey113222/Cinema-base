@@ -14,7 +14,6 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 class UserServiceImplTest {
@@ -23,11 +22,11 @@ class UserServiceImplTest {
     private UserService userService;
     private UserRepository userRepository;
     private DirectionConverter directionConverter;
-    private User user;
+    private final User user;
 
     {
         user = new User();
-        user.setId(2l);
+        user.setId(2L);
         user.setUsername("Maxim");
         user.setPassword("G113222");
         user.setActive(true);
