@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -16,8 +15,6 @@ public class UserDto {
     private Long id;
     @NotNull(message = "Name cannot be null")
     private String username;
-    @NotEmpty
-    @NotNull
     @Size(min = 6, max = 50, message = "Password must be between 6 and 50 characters")
     private String password;
     @NotNull

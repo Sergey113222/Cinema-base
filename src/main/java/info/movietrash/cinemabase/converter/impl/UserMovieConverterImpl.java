@@ -8,8 +8,8 @@ import info.movietrash.cinemabase.model.User;
 import info.movietrash.cinemabase.model.UserMovie;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class UserMovieConverterImpl implements UserMovieConverter {
@@ -41,10 +41,7 @@ public class UserMovieConverterImpl implements UserMovieConverter {
         movieDto.setOverview(userMovie.getMovie().getDescription());
         movieDto.setAdult(userMovie.getMovie().getAdult());
 
-        List<Long> genresIds = new ArrayList<>();
-        for (Genre genre : userMovie.getMovie().getGenres()) {
-            genresIds.add(genre.getExternalId());
-        }
+        List<Long> genresIds = userMovie.getMovie().getGenres().stream().map(Genre::getExternalId).collect(Collectors.toList());
         movieDto.setGenreIds(genresIds);
 
         movieDto.setPersonalRating(userMovie.getRating());

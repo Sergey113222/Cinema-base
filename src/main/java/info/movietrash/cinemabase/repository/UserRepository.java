@@ -16,7 +16,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Modifying
     @Query("update User u set u.active = false where u.id = :id")
-    void updateUser(@Param("id") Long id);
+    void deleteUser(@Param("id") Long id);
 
     Page<User> findAll(Pageable pageable);
 

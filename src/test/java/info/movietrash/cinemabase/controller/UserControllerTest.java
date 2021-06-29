@@ -92,7 +92,7 @@ class UserControllerTest {
     void deleteUserById() throws Exception {
         Long id = user.getId();
         mockMvc.perform(delete("/api/v1/users/" + id))
-                .andExpect(status().is(204));
+                .andExpect(status().isOk());
         assertFalse(userRepository.findById(id).isPresent());
     }
 }

@@ -48,7 +48,7 @@ class RegistrationControllerTest {
                 .perform(post("/registration/new")
                         .contentType("application/json")
                         .content(objectMapper.writeValueAsString(userDto)))
-                .andExpect(status().isCreated())
+                .andExpect(status().isOk())
                 .andReturn()
                 .getResponse()
                 .getContentAsString();

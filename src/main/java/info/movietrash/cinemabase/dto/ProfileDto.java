@@ -15,7 +15,6 @@ public class ProfileDto {
             = "About must be between 10 and 200 characters")
     private String about;
     @Email(message = "Email should be valid")
-    @Pattern(regexp = ".+@.+\\.[a-z]+")
     private String email;
     @NotNull(message = "First name cannot be null")
     @Pattern(regexp = "[\\w\\s'`]{2,64}")
