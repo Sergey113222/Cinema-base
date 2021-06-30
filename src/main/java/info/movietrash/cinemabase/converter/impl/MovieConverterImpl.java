@@ -2,8 +2,6 @@ package info.movietrash.cinemabase.converter.impl;
 
 import info.movietrash.cinemabase.converter.MovieConverter;
 import info.movietrash.cinemabase.dto.MovieDto;
-import info.movietrash.cinemabase.exception.ErrorMessages;
-import info.movietrash.cinemabase.exception.ResourceNotFoundException;
 import info.movietrash.cinemabase.model.Genre;
 import info.movietrash.cinemabase.model.Movie;
 import info.movietrash.cinemabase.repository.GenreRepository;
@@ -35,11 +33,7 @@ public class MovieConverterImpl implements MovieConverter {
 
 
         List<Long> genreExternalIds = movieDto.getGenreIds();
-        List<Genre> genres = new ArrayList<>();
-        for (Long genreExternalId : genreExternalIds) {
-            genres.add(genreRepository.findByExternalId(genreExternalId).orElseThrow(() ->
-                    new ResourceNotFoundException(String.format(ErrorMessages.RESOURCE_NOT_FOUND, genreExternalId))));
-        }
+        List<Genre> genres = genreRepository.findAllByExternalId(genreExternalIds);
         movie.setGenres(genres);
         return movie;
     }
