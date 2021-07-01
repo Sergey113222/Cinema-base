@@ -30,9 +30,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDto> findAllUsers(String sortDirection, String sortColumn) {
+    public List<UserDto> findAllUsers(Sort.Direction direction, String sortColumn) {
         return userConverter.toDtoList(userRepository.findAll(
-                Sort.by(directionConverter.replaceStringThroughDirection(sortDirection), sortColumn)));
+                Sort.by(direction, sortColumn)));
     }
 
     @Override

@@ -3,6 +3,7 @@ package info.movietrash.cinemabase.controller;
 import info.movietrash.cinemabase.dto.UserDto;
 import info.movietrash.cinemabase.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,9 +21,9 @@ public class UserController {
 
     @GetMapping
     public List<UserDto> findAllUsersSorted(
-            @RequestParam String sortDirection,
+            @RequestParam Sort.Direction direction,
             @RequestParam String sortColumn) {
-        return userService.findAllUsers(sortDirection, sortColumn);
+        return userService.findAllUsers(direction, sortColumn);
     }
 
     @DeleteMapping("/{id}")
