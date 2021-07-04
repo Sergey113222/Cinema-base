@@ -15,7 +15,7 @@ import java.net.URL;
 import java.util.List;
 
 public class ParserTest {
-    private static String str = "response.json";
+    private static final String str = "response.json";
 
     @Test
     public void readFromFile() throws IOException {
@@ -32,7 +32,7 @@ public class ParserTest {
         String actualStr = readTestResourceFile(str);
         JsonNode responseBody = objectMapper.readTree(actualStr);
         JsonNode resultsMassive = responseBody.path("results");
-        List<MovieDto> jsonToMoviesList = objectMapper.readValue(resultsMassive.toString(), new TypeReference<List<MovieDto>>() {
+        List<MovieDto> jsonToMoviesList = objectMapper.readValue(resultsMassive.toString(), new TypeReference<>() {
         });
         //jsonToMoviesList.forEach(System.out::println);
 

@@ -2,14 +2,26 @@ package info.movietrash.cinemabase.converter.impl;
 
 import info.movietrash.cinemabase.converter.MovieConverter;
 import info.movietrash.cinemabase.dto.MovieDto;
+import info.movietrash.cinemabase.model.Genre;
 import info.movietrash.cinemabase.model.Movie;
-import lombok.NonNull;
+import info.movietrash.cinemabase.repository.GenreRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
+@AllArgsConstructor
 public class MovieConverterImpl implements MovieConverter {
+
+    private final GenreRepository genreRepository;
+
     @Override
-    public Movie toModel(@NonNull MovieDto movieDto) {
+    public Movie toModel(MovieDto movieDto) {
+        if (movieDto == null) {
+            return null;
+        }
         Movie movie = new Movie();
         movie.setTitle(movieDto.getTitle());
         movie.setExternalId(movieDto.getExternalMovieId());
@@ -18,12 +30,19 @@ public class MovieConverterImpl implements MovieConverter {
         movie.setImdb(movieDto.getVoteAverage());
         movie.setDescription(movieDto.getOverview());
         movie.setAdult(movieDto.getAdult());
-        //movie.setGenres(movieDto.getGenreIds());
+
+
+        List<Long> genreExternalIds = movieDto.getGenreIds();
+        List<Genre> genres = genreRepository.findAllByExternalId(genreExternalIds);
+        movie.setGenres(genres);
         return movie;
     }
 
     @Override
     public MovieDto toDto(Movie movie) {
+        if (movie == null) {
+            return null;
+        }
         MovieDto movieDto = new MovieDto();
         movieDto.setExternalMovieId(movie.getExternalId());
         movieDto.setTitle(movie.getTitle());
@@ -32,7 +51,11 @@ public class MovieConverterImpl implements MovieConverter {
         movieDto.setVoteAverage(movie.getImdb());
         movieDto.setOverview(movie.getDescription());
         movieDto.setAdult(movie.getAdult());
-        //movieDto.setGenreIds(movie.getGenres());
+
+        List<Genre> genres = movie.getGenres();
+        List<Long> genresIds = genres.stream().map(Genre::getExternalId).collect(Collectors.toList());
+
+        movieDto.setGenreIds(genresIds);
         return movieDto;
     }
 }

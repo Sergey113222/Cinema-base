@@ -1,7 +1,6 @@
 package info.movietrash.cinemabase.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -10,6 +9,8 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "genre")
 public class Genre extends BaseModel {
     @Column(name = "external_id")

@@ -26,7 +26,7 @@ public class MovieDto {
     private String overview;
     private Boolean adult;
     @JsonProperty("genre_ids")
-    private List<Integer> genreIds;
+    private List<Long> genreIds;
     @JsonProperty("personal_rating")
     @Min(value = 0, message = "Rating should be between [0-10]")
     @Max(value = 10, message = "Rating should be between [0-10]")
