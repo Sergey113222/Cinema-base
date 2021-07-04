@@ -12,6 +12,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @Slf4j
 @AllArgsConstructor
@@ -24,28 +28,32 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public Long createUser(UserDto userDto) {
-        userDto.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
+        userDto.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));   //remove to UserConverter after
         Long registerUserDtoId = userRepository.save(userConverter.toModel(userDto)).getId();
-
-        log.info("In register - user: {} successfully registered", registerUserDtoId);
-
+        log.info("In createUser - user: {} successfully created", registerUserDtoId);
         return registerUserDtoId;
     }
 
     @Override
-    public UserDto getAll() {
-        return null;
+    public List<UserDto> findAll() {
+        List<User> userList = userRepository.findAll();
+        List<UserDto> userDtoList = userList.stream().map(userConverter::toDto).collect(Collectors.toList());
+        log.info("In findAll - users: {} successfully found", userDtoList.size());
+        return userDtoList;
     }
 
     @Override
     public UserDto findUserByName(String username) {
-        return null;
+        UserDto userDto = userConverter.toDto(userRepository.findByUsername(username));
+        log.info("In findUserByName - user: {} successfully found by username: {}", userDto, username);
+        return userDto;
     }
 
     @Override
     public UserDto findUserById(Long id) {
         User user = userRepository.findById(id).orElseThrow(() ->
                 new IllegalArgumentException(String.format(ErrorMessages.RESOURCE_NOT_FOUND, id)));
+        log.info("In findUserById - user: {} successfully found by id: {}", user, id);
         return userConverter.toDto(user);
     }
 
@@ -57,6 +65,7 @@ public class UserServiceImpl implements UserService {
                 new IllegalArgumentException(String.format(ErrorMessages.RESOURCE_NOT_FOUND, id)));
         existed.setUsername(userDto.getUsername());
         existed.setPassword((userDto.getPassword()));
+        log.info("In updateUser - user: {} successfully updated", existed);
         userRepository.save(existed);
     }
 
@@ -66,5 +75,6 @@ public class UserServiceImpl implements UserService {
                 new IllegalArgumentException(String.format(ErrorMessages.RESOURCE_NOT_FOUND, id)));
         user.setActive(false);
         userRepository.save(user);
+        log.info("In deleteUser - user: {} successfully deleted by id: {}", user, id);
     }
 }

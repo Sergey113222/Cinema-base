@@ -3,12 +3,14 @@ package info.movietrash.cinemabase.service;
 import info.movietrash.cinemabase.dto.UserDto;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public interface UserService {
 
     Long createUser(UserDto userDto);
 
-    UserDto getAll();
+    List<UserDto> findAll();
 
     UserDto findUserByName(String username);
 
