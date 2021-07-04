@@ -8,8 +8,8 @@ import info.movietrash.cinemabase.repository.GenreRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @AllArgsConstructor
@@ -53,10 +53,7 @@ public class MovieConverterImpl implements MovieConverter {
         movieDto.setAdult(movie.getAdult());
 
         List<Genre> genres = movie.getGenres();
-        List<Long> genresIds = new ArrayList<>();
-        for (Genre genre : genres) {
-            genresIds.add(genre.getExternalId());
-        }
+        List<Long> genresIds = genres.stream().map(Genre::getExternalId).collect(Collectors.toList());
 
         movieDto.setGenreIds(genresIds);
         return movieDto;

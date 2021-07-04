@@ -22,14 +22,10 @@ public class ProfileDto {
     @NotNull(message = "Last name cannot be null")
     @Pattern(regexp = "[\\w\\s'`]{2,64}")
     private String lastName;
-    @NotNull
     @Min(value = 16, message = "Age should not be less than 16")
     @Max(value = 99, message = "Age should not be greater than 99")
     private Integer age;
-    @NotNull
     private String gender;
-    @NotNull
     private String region;
-    @NotNull
     private String language;
 }
