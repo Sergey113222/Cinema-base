@@ -3,18 +3,20 @@ package info.movietrash.cinemabase.service.impl;
 import info.movietrash.cinemabase.converter.UserConverter;
 import info.movietrash.cinemabase.dto.UserDto;
 import info.movietrash.cinemabase.exception.ErrorMessages;
+import info.movietrash.cinemabase.exception.ResourceNotFoundException;
 import info.movietrash.cinemabase.model.User;
 import info.movietrash.cinemabase.repository.UserRepository;
 import info.movietrash.cinemabase.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
+import org.springframework.data.domain.Sort;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import java.util.List;
 
 @Service
 @Slf4j
@@ -23,6 +25,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserConverter userConverter;
+    private final DirectionConverter directionConverter;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Transactional
@@ -50,9 +53,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<UserDto> findAllUsers(Sort.Direction direction, String sortColumn) {
+        return userConverter.toDtoList(userRepository.findAll(
+                Sort.by(direction, sortColumn)));
+    }
+
+    @Override
     public UserDto findUserById(Long id) {
         User user = userRepository.findById(id).orElseThrow(() ->
-                new IllegalArgumentException(String.format(ErrorMessages.RESOURCE_NOT_FOUND, id)));
+                new ResourceNotFoundException(String.format(ErrorMessages.RESOURCE_NOT_FOUND, id)));
         log.info("In findUserById - user: {} successfully found by id: {}", user, id);
         return userConverter.toDto(user);
     }
@@ -69,12 +78,10 @@ public class UserServiceImpl implements UserService {
         userRepository.save(existed);
     }
 
+    @Transactional
     @Override
     public void deleteUser(Long id) {
-        User user = userRepository.findById(id).orElseThrow(() ->
-                new IllegalArgumentException(String.format(ErrorMessages.RESOURCE_NOT_FOUND, id)));
-        user.setActive(false);
-        userRepository.save(user);
-        log.info("In deleteUser - user: {} successfully deleted by id: {}", user, id);
+        userRepository.deleteUser(id);
+        log.info("In deleteUser - user: {} successfully deleted by id: {}", id);
     }
 }

@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -52,7 +51,7 @@ public class SearchServiceImpl implements SearchService {
     private String searchMovieLatest;
 
     @Override
-    public List<MovieDto> searchMoviesByName(@Valid SearchDto dto) {
+    public List<MovieDto> searchMoviesByName(SearchDto dto) {
         URI uri = createURI(searchMovieByName).queryParam(QUERY, dto.getQuery()).build().toUri();
         return getMovieFromResource(uri);
     }
@@ -80,12 +79,12 @@ public class SearchServiceImpl implements SearchService {
 
     private List<MovieDto> getMovieFromResource(URI uri) {
         try {
-            RequestEntity<Object> request = new RequestEntity(HttpMethod.GET, uri);
+            RequestEntity request = new RequestEntity(HttpMethod.GET, uri);
             ResponseEntity<String> response = restTemplate.exchange(request, String.class);
             objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
             JsonNode responseBody = objectMapper.readTree(response.getBody());
             JsonNode resultsMassive = responseBody.path(JSON_NODE_STR);
-            return objectMapper.readValue(resultsMassive.toString(), new TypeReference<List<MovieDto>>() {
+            return objectMapper.readValue(resultsMassive.toString(), new TypeReference<>() {
             });
         } catch (Exception e) {
             log.error(String.format("Can't get movie from resource. %s", e.getMessage()));

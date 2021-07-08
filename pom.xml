@@ -15,7 +15,11 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>cinema-base</name>
-    <description>Project for Spring Boot App</description>
+    <description>Project for Spring Boot App. Working together with TheMovieDB Api.
+        To search, view movie descriptions, add reviews and save your favorite movies.
+        Technologies used (Rest, Data JPA, MySql, Liquibase, Spring Security JWT, Junit,
+        Mockito, ExceptionHandler, Validation)
+    </description>
 
     <properties>
         <java.version>8</java.version>
@@ -53,6 +57,16 @@
             <version>8.0.23</version>
         </dependency>
         <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>2.0.1.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>6.0.13.Final</version>
+        </dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
@@ -84,6 +98,11 @@
             <artifactId>jjwt</artifactId>
             <version>0.9.1</version>
         </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
         <!-- Test-->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -106,8 +125,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <source>8</source>
-                    <target>8</target>
+                    <source>9</source>
+                    <target>9</target>
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.projectlombok</groupId>

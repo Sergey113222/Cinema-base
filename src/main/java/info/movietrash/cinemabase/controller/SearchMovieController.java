@@ -6,6 +6,7 @@ import info.movietrash.cinemabase.service.SearchService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -16,7 +17,7 @@ public class SearchMovieController {
     private final SearchService searchService;
 
     @PostMapping
-    public List<MovieDto> searchMoviesByName(@RequestBody SearchDto dto) {
+    public List<MovieDto> searchMoviesByName(@RequestBody @Valid SearchDto dto) {
         return searchService.searchMoviesByName(dto);
     }
 
