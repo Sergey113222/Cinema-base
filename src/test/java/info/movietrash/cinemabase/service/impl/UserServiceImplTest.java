@@ -9,6 +9,7 @@ import info.movietrash.cinemabase.repository.UserRepository;
 import info.movietrash.cinemabase.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Optional;
 
@@ -36,7 +37,7 @@ class UserServiceImplTest {
     void setUp() {
         userRepository = mock(UserRepository.class);
         userConverter = mock(UserConverter.class);
-        userService = new UserServiceImpl(userRepository, userConverter, directionConverter);
+        userService = new UserServiceImpl(userRepository, userConverter, (BCryptPasswordEncoder) directionConverter);//????
     }
 
     @Test

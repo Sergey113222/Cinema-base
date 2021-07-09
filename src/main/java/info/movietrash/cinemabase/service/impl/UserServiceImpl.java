@@ -4,17 +4,16 @@ import info.movietrash.cinemabase.converter.UserConverter;
 import info.movietrash.cinemabase.dto.UserDto;
 import info.movietrash.cinemabase.exception.ErrorMessages;
 import info.movietrash.cinemabase.exception.ResourceNotFoundException;
+import info.movietrash.cinemabase.model.Role;
 import info.movietrash.cinemabase.model.User;
 import info.movietrash.cinemabase.repository.UserRepository;
 import info.movietrash.cinemabase.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import org.springframework.data.domain.Sort;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import java.util.List;
 
@@ -25,24 +24,16 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserConverter userConverter;
-    private final DirectionConverter directionConverter;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Transactional
     @Override
     public Long createUser(UserDto userDto) {
-        userDto.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));   //remove to UserConverter after
+        userDto.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
+        userDto.setRole(Role.USER);
         Long registerUserDtoId = userRepository.save(userConverter.toModel(userDto)).getId();
         log.info("In createUser - user: {} successfully created", registerUserDtoId);
         return registerUserDtoId;
-    }
-
-    @Override
-    public List<UserDto> findAll() {
-        List<User> userList = userRepository.findAll();
-        List<UserDto> userDtoList = userList.stream().map(userConverter::toDto).collect(Collectors.toList());
-        log.info("In findAll - users: {} successfully found", userDtoList.size());
-        return userDtoList;
     }
 
     @Override
@@ -54,8 +45,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDto> findAllUsers(Sort.Direction direction, String sortColumn) {
-        return userConverter.toDtoList(userRepository.findAll(
+        List<UserDto> userDtoList = userConverter.toDtoList(userRepository.findAll(
                 Sort.by(direction, sortColumn)));
+        log.info("In findAll - users: {} successfully found", userDtoList.size());
+        return userDtoList;
     }
 
     @Override
@@ -82,6 +75,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(Long id) {
         userRepository.deleteUser(id);
-        log.info("In deleteUser - user: {} successfully deleted by id: {}", id);
+        log.info("In deleteUser successfully deleted by id: {}", id);
     }
 }

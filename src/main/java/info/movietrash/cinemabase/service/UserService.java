@@ -13,8 +13,6 @@ public interface UserService {
 
     List<UserDto> findAllUsers(Sort.Direction direction, String sortColumn);
 
-    List<UserDto> findAll();
-
     UserDto findUserByName(String username);
 
     UserDto findUserById(Long id);

@@ -3,6 +3,7 @@ package info.movietrash.cinemabase.security;
 import info.movietrash.cinemabase.converter.UserConverter;
 import info.movietrash.cinemabase.model.User;
 import info.movietrash.cinemabase.security.jwt.JwtUser;
+import info.movietrash.cinemabase.security.jwt.JwtUserFactory;
 import info.movietrash.cinemabase.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -28,6 +29,8 @@ public class JwtUserDetailsService implements UserDetailsService {
         if (user==null){
             throw new UsernameNotFoundException("User with username: " + username + " not found");
         }
-        return null;
+        JwtUser jwtUser = JwtUserFactory.create(user);
+        log.info("In loadByUserName - user with username: {} successfully loaded", username);
+        return jwtUser;
     }
 }

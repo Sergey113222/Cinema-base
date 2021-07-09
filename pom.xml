@@ -26,6 +26,9 @@
         <org.junit.jupiter>5.5.2</org.junit.jupiter>
         <liquibase.version>4.3.5</liquibase.version>
         <lombok.version>1.18.12</lombok.version>
+        <mysql.connector.version>8.0.23</mysql.connector.version>
+        <jsonwebtoken.version>0.9.1</jsonwebtoken.version>
+
     </properties>
 
     <dependencies>
@@ -54,7 +57,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.23</version>
+            <version>${mysql.connector.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.validation</groupId>
@@ -96,7 +99,7 @@
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
-            <version>0.9.1</version>
+            <version>${jsonwebtoken.version}</version>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>

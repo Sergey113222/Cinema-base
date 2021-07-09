@@ -22,5 +22,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
     void deleteUser(@Param("id") Long id);
 
     Page<User> findAll(Pageable pageable);
-
 }
