@@ -19,7 +19,7 @@ public class UserController {
         return userService.findUserById(id);
     }
 
-    @GetMapping
+    @GetMapping(value = "/param")
     public List<UserDto> findAllUsersSorted(
             @RequestParam Sort.Direction direction,
             @RequestParam String sortColumn) {

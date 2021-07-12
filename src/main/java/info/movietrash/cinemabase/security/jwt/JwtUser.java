@@ -27,15 +27,14 @@ public class JwtUser implements UserDetails {
     }
 
     @JsonIgnore
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
     }
 
+    @JsonIgnore
     @Override
     public String getPassword() {
         return password;
@@ -65,9 +64,7 @@ public class JwtUser implements UserDetails {
     }
 
     @Override
-    public boolean isEnabled() {
-        return enabled;
-    }
+    public boolean isEnabled() { return enabled; }
 
     @JsonIgnore
     public Date getLastPasswordResetDate() {

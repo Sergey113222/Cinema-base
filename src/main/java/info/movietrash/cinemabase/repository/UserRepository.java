@@ -22,4 +22,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     void deleteUser(@Param("id") Long id);
 
     Page<User> findAll(Pageable pageable);
+
+    @Query("select u from User u join Profile p where u.active = true and p.email = :email")
+    Optional<User> findByEmail(String email);
 }

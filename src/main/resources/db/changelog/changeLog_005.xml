@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="10" author="Sergey">
+        <sql>
+            ALTER table profile MODIFY email varchar(100) DEFAULT null;
+            ALTER table profile MODIFY age int(11);
+            ALTER table profile MODIFY gender varchar(10);
+        </sql>
+        <rollback>
+            ALTER table profile MODIFY email varchar(100);
+            ALTER table profile MODIFY age int(11) DEFAULT null;
+            ALTER table profile MODIFY gender(10) varchar DEFAULT null;
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

@@ -6,6 +6,7 @@ import info.movietrash.cinemabase.converter.UserConverter;
 import info.movietrash.cinemabase.dto.UserDto;
 import info.movietrash.cinemabase.model.User;
 import info.movietrash.cinemabase.repository.UserRepository;
+import info.movietrash.cinemabase.security.jwt.JwtTokenProvider;
 import info.movietrash.cinemabase.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,6 +24,7 @@ class UserServiceImplTest {
     private UserService userService;
     private UserRepository userRepository;
     private DirectionConverter directionConverter;
+    private JwtTokenProvider jwtTokenProvider;
     private final User user;
 
     {
@@ -37,7 +39,7 @@ class UserServiceImplTest {
     void setUp() {
         userRepository = mock(UserRepository.class);
         userConverter = mock(UserConverter.class);
-        userService = new UserServiceImpl(userRepository, userConverter, (BCryptPasswordEncoder) directionConverter);//????
+        userService = new UserServiceImpl(userRepository, userConverter, (BCryptPasswordEncoder) directionConverter, jwtTokenProvider);//????
     }
 
     @Test

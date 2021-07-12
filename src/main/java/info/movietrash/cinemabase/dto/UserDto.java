@@ -17,11 +17,9 @@ public class UserDto {
     private String username;
     @Size(min = 6, max = 50, message = "Password must be between 6 and 50 characters")
     private String password;
-    @NotNull
     private Role role;
     private ProfileDto profileDto;
 
-    //временно для запихивание пользователя вручную (пока нет секьюрити)
     public UserDto(Long id, String username, String password) {
         this.id = id;
         this.username = username;

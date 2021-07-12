@@ -1,12 +1,14 @@
 package info.movietrash.cinemabase.service.impl;
 
 import info.movietrash.cinemabase.converter.UserConverter;
+import info.movietrash.cinemabase.dto.AuthenticationResponseDto;
 import info.movietrash.cinemabase.dto.UserDto;
 import info.movietrash.cinemabase.exception.ErrorMessages;
 import info.movietrash.cinemabase.exception.ResourceNotFoundException;
 import info.movietrash.cinemabase.model.Role;
 import info.movietrash.cinemabase.model.User;
 import info.movietrash.cinemabase.repository.UserRepository;
+import info.movietrash.cinemabase.security.jwt.JwtTokenProvider;
 import info.movietrash.cinemabase.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -25,15 +27,21 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserConverter userConverter;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @Transactional
     @Override
-    public Long createUser(UserDto userDto) {
+    public AuthenticationResponseDto createUser(UserDto userDto) {
         userDto.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
         userDto.setRole(Role.USER);
-        Long registerUserDtoId = userRepository.save(userConverter.toModel(userDto)).getId();
-        log.info("In createUser - user: {} successfully created", registerUserDtoId);
-        return registerUserDtoId;
+        User createdUser = userRepository.save(userConverter.toModel(userDto));
+        log.info("In createUser - user: {} successfully created", createdUser);
+
+        AuthenticationResponseDto authenticationResponseDto = new AuthenticationResponseDto();
+        authenticationResponseDto.setUsername(userDto.getUsername());
+        authenticationResponseDto.setToken(jwtTokenProvider.createToken(createdUser.getUsername(),
+                new ArrayList<>(Collections.singleton(createdUser.getRole()))));
+        return authenticationResponseDto;
     }
 
     @Override
