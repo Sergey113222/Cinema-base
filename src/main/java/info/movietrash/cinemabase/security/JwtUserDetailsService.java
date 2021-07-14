@@ -22,10 +22,11 @@ public class JwtUserDetailsService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(username).orElse(new User());
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(email).orElseThrow(() ->
+                new UsernameNotFoundException("User doesn't exists"));
         JwtUser jwtUser = JwtUserFactory.create(user);
-        log.info("In loadByUserName - user with username: {} successfully loaded", username);
+        log.info("In loadByEmail - user with email: {} successfully loaded", email);
         return jwtUser;
     }
 }

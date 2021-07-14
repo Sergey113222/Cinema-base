@@ -21,14 +21,10 @@
     <changeSet id="04" author="Sergey">
         <tagDatabase tag="rename column profile_id to user_id table user_movie"/>
     </changeSet>
-    <changeSet id="05" author="Sergey">
-        <tagDatabase tag="alter table profile column email(not null), age(null), gender(null)"/>
-    </changeSet>
 
     <include file="changelog_001.xml" relativeToChangelogFile="true"/>
     <include file="changelog_002.xml" relativeToChangelogFile="true"/>
     <include file="changelog_003.xml" relativeToChangelogFile="true"/>
     <include file="changelog_004.xml" relativeToChangelogFile="true"/>
-    <include file="changelog_005.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

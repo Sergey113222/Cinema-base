@@ -37,9 +37,9 @@ public class AuthenticationRestController {
     @PostMapping(value = "/login")
     public AuthenticationResponseDto login(@RequestBody AuthenticationRequestDto requestDto) {
         try {
-            String username = requestDto.getUsername();
+            String email = requestDto.getEmail();
             String password = requestDto.getPassword();
-            Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+            Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
             JwtUser principal = (JwtUser) authenticate.getPrincipal();
 
             List<? extends GrantedAuthority> simpleGrantedAuthorities = new ArrayList<>(principal.getAuthorities());
@@ -47,11 +47,11 @@ public class AuthenticationRestController {
             List<Role> roleList = new ArrayList<>();
             roleList.add(role);
 
-            String token = jwtTokenProvider.createToken(username, roleList);
+            String token = jwtTokenProvider.createToken(email, roleList);
 
-            return new AuthenticationResponseDto(username, token);
+            return new AuthenticationResponseDto(email, token);
         } catch (JwtAuthenticationException e) {
-            throw new BadCredentialsException("Invalid username or password");
+            throw new BadCredentialsException("Invalid email or password");
         }
     }
 

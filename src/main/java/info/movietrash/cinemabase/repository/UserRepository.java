@@ -23,6 +23,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Page<User> findAll(Pageable pageable);
 
-    @Query("select u from User u join Profile p where u.active = true and p.email = :email")
+    @Query("select u from User u join Profile p on p.id= u.profile.id where u.active = true and p.email = :email")
     Optional<User> findByEmail(String email);
 }

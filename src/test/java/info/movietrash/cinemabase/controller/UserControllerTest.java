@@ -40,8 +40,7 @@ class UserControllerTest {
 
     {
         Profile profile = new Profile();
-        profile.setAge(20);
-        profile.setGender("M");
+        profile.setEmail("maxim@mail.ru");
 
         user = new User();
         user.setUsername("Maxim");
