@@ -11,8 +11,11 @@ import info.movietrash.cinemabase.model.UserMovie;
 import info.movietrash.cinemabase.repository.MovieRepository;
 import info.movietrash.cinemabase.repository.UserMovieRepository;
 import info.movietrash.cinemabase.repository.UserRepository;
+import info.movietrash.cinemabase.security.jwt.JwtUser;
 import info.movietrash.cinemabase.service.MovieService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,7 +32,9 @@ public class MovieServiceImpl implements MovieService {
     @Transactional
     @Override
     public Long addToFavouriteMovies(MovieDto movieDto) {
-        Long userId = 1L;     // in my db have created user with id = 1
+        Authentication authenticate = SecurityContextHolder.getContext().getAuthentication();
+        JwtUser principal = (JwtUser) authenticate.getPrincipal();
+        Long userId = principal.getId();
         User user = userRepository
                 .findById(userId)
                 .orElseThrow(() ->

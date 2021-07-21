@@ -15,17 +15,16 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>cinema-base</name>
-    <description>Project for Spring Boot App. Working together with TheMovieDB Api.
-        To search, view movie descriptions, add reviews and save your favorite movies.
-        Technologies used (Rest, Data JPA, MySql, Liquibase, Spring Security JWT, Junit,
-        Mockito, ExceptionHandler, Validation)
-    </description>
+    <description>Rest SpringBoot App</description>
 
     <properties>
         <java.version>8</java.version>
         <org.junit.jupiter>5.5.2</org.junit.jupiter>
         <liquibase.version>4.3.5</liquibase.version>
         <lombok.version>1.18.12</lombok.version>
+        <mysql.connector.version>8.0.23</mysql.connector.version>
+        <jsonwebtoken.version>0.9.1</jsonwebtoken.version>
+
     </properties>
 
     <dependencies>
@@ -39,6 +38,11 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
         <dependency>
@@ -49,7 +53,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.23</version>
+            <version>${mysql.connector.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.validation</groupId>
@@ -87,6 +91,11 @@
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>4.5.13</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>${jsonwebtoken.version}</version>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
