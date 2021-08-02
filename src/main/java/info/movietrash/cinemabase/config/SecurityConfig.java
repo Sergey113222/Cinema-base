@@ -7,18 +7,22 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 
 @Configuration
+@EnableGlobalMethodSecurity(
+        prePostEnabled = true,
+        securedEnabled = true,
+        jsr250Enabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final JwtTokenProvider jwtTokenProvider;
 
-    private static final String ADMIN_ENDPOINT = "/api/v1/users";
-    private static final  String LOGIN_ENDPOINT = "/api/v1/auth/**";
-    private static final  String REGISTRATION_ENDPOINT = "/registration/new";
+    private static final String LOGIN_ENDPOINT = "/api/v1/auth/**";
+    private static final String REGISTRATION_ENDPOINT = "/registration/new";
     private static final String SWAGGER_ENDPOINT = "/swagger*/**";
     private static final String SWAGGER_API_DOCS_ENDPOINT = "/v2/api-docs";
 
@@ -44,7 +48,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(LOGIN_ENDPOINT).permitAll()
                 .antMatchers(SWAGGER_ENDPOINT, SWAGGER_API_DOCS_ENDPOINT).permitAll()
                 .antMatchers(HttpMethod.POST, REGISTRATION_ENDPOINT).permitAll()
-                .antMatchers(ADMIN_ENDPOINT).hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .apply(new JwtConfigurer(jwtTokenProvider));
