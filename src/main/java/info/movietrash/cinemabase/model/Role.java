@@ -1,5 +1,5 @@
 package info.movietrash.cinemabase.model;
 
 public enum Role {
-    ADMIN, USER
+    ROLE_USER, ROLE_ADMIN
 }

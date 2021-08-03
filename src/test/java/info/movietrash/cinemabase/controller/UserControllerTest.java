@@ -46,7 +46,7 @@ class UserControllerTest {
         user.setUsername("Maxim");
         user.setPassword("G113222");
         user.setActive(true);
-        user.setRole(Role.ADMIN);
+        user.setRole(Role.ROLE_ADMIN);
         user.setProfile(profile);
     }
 

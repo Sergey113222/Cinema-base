@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public AuthenticationResponseDto createUser(UserDto userDto) {
         userDto.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
-        userDto.setRole(Role.USER);
+        userDto.setRole(Role.ROLE_USER);
         User createdUser = userRepository.save(userConverter.toModel(userDto));
         log.info("In createUser - user: {} successfully created", createdUser);
 

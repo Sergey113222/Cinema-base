@@ -41,7 +41,7 @@ class RegistrationControllerTest {
         userDto.setId(7L);
         userDto.setUsername("Maxim");
         userDto.setPassword("Gr113222");
-        userDto.setRole(Role.ADMIN);
+        userDto.setRole(Role.ROLE_ADMIN);
         userDto.setProfileDto(profileDto);
 
         String responseAsString = mockMvc
