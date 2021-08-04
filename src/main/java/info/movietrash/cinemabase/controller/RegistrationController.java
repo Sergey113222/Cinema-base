@@ -18,7 +18,7 @@ public class RegistrationController {
 
     @PostMapping(value = "/new")
     public AuthenticationResponseDto register(@RequestBody @Valid UserDto userDto) {
-        userDto.setRole(Role.USER);
+        userDto.setRole(Role.ROLE_USER);
         return userService.createUser(userDto);
     }
 

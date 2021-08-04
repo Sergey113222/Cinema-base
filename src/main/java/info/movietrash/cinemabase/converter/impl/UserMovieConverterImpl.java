@@ -6,7 +6,6 @@ import info.movietrash.cinemabase.model.Genre;
 import info.movietrash.cinemabase.model.Movie;
 import info.movietrash.cinemabase.model.User;
 import info.movietrash.cinemabase.model.UserMovie;
-import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -17,7 +16,7 @@ public class UserMovieConverterImpl implements UserMovieConverter {
 
     @Override
     public UserMovie createUserMovie(User user, Movie movie, MovieDto movieDto) {
-        if (ObjectUtils.allNotNull(user, movie, movieDto)) {
+        if ((user == null) || (movie == null) || (movieDto == null)) {
             return null;
         }
         UserMovie userMovie = new UserMovie();
