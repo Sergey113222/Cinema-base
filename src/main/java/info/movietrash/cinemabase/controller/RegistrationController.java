@@ -2,7 +2,6 @@ package info.movietrash.cinemabase.controller;
 
 import info.movietrash.cinemabase.dto.AuthenticationResponseDto;
 import info.movietrash.cinemabase.dto.UserDto;
-import info.movietrash.cinemabase.model.Role;
 import info.movietrash.cinemabase.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +17,6 @@ public class RegistrationController {
 
     @PostMapping(value = "/new")
     public AuthenticationResponseDto register(@RequestBody @Valid UserDto userDto) {
-        userDto.setRole(Role.ROLE_USER);
         return userService.createUser(userDto);
     }
 

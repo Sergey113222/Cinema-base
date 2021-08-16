@@ -17,7 +17,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 @Service
 @Slf4j
@@ -39,7 +41,7 @@ public class UserServiceImpl implements UserService {
 
         AuthenticationResponseDto authenticationResponseDto = new AuthenticationResponseDto();
         authenticationResponseDto.setUsername(userDto.getUsername());
-        authenticationResponseDto.setToken(jwtTokenProvider.createToken(createdUser.getUsername(),
+        authenticationResponseDto.setToken(jwtTokenProvider.createToken(createdUser.getProfile().getEmail(),
                 new ArrayList<>(Collections.singleton(createdUser.getRole()))));
         return authenticationResponseDto;
     }
