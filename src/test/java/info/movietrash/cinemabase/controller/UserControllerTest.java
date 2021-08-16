@@ -81,7 +81,7 @@ class UserControllerTest {
                 .andReturn()
                 .getResponse()
                 .getContentAsString();
-        List<User> foundUsers = objectMapper.readValue(responseAsString, new TypeReference<>() {
+        List<User> foundUsers = objectMapper.readValue(responseAsString, new TypeReference<List<User>>() {
         });
         assertFalse(foundUsers.isEmpty());
 

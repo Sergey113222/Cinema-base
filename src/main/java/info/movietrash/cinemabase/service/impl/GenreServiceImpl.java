@@ -60,7 +60,7 @@ public class GenreServiceImpl {
             objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
             JsonNode responseBody = objectMapper.readTree(genresJson);
             JsonNode resultsMassive = responseBody.path(JSON_NODE_STR);
-            List<ExternalGenreDto> jsonGenreList = objectMapper.readValue(resultsMassive.toString(), new TypeReference<>() {
+            List<ExternalGenreDto> jsonGenreList = objectMapper.readValue(resultsMassive.toString(), new TypeReference<List<ExternalGenreDto>>() {
             });
             genreRepository.saveAll(genreConverter.toModel(jsonGenreList));
         }

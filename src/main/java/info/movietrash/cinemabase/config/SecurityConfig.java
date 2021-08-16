@@ -21,10 +21,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final JwtTokenProvider jwtTokenProvider;
 
-    private static final String LOGIN_ENDPOINT = "/api/v1/auth/**";
     private static final String REGISTRATION_ENDPOINT = "/registration/new";
-    private static final String SWAGGER_ENDPOINT = "/swagger*/**";
-    private static final String SWAGGER_API_DOCS_ENDPOINT = "/v2/api-docs";
+
+    private static final String[] openEndpoints = {
+            "/api/v1/auth/**",
+            "/swagger*/**",
+            "/v2/api-docs",
+            "/h2/**"};
 
     @Autowired
     public SecurityConfig(JwtTokenProvider jwtTokenProvider) {
@@ -42,11 +45,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .httpBasic().disable()
                 .csrf().disable()
+                .headers().frameOptions().disable()                            //to be able to connect to H2 console with browser
+                .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers(LOGIN_ENDPOINT).permitAll()
-                .antMatchers(SWAGGER_ENDPOINT, SWAGGER_API_DOCS_ENDPOINT).permitAll()
+                .antMatchers(openEndpoints).permitAll()
                 .antMatchers(HttpMethod.POST, REGISTRATION_ENDPOINT).permitAll()
                 .anyRequest().authenticated()
                 .and()

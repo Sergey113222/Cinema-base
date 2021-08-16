@@ -18,13 +18,10 @@
     <description>Rest SpringBoot App</description>
 
     <properties>
-        <java.version>8</java.version>
         <org.junit.jupiter>5.5.2</org.junit.jupiter>
         <liquibase.version>4.3.5</liquibase.version>
-        <lombok.version>1.18.12</lombok.version>
         <mysql.connector.version>8.0.23</mysql.connector.version>
         <jsonwebtoken.version>0.9.1</jsonwebtoken.version>
-
     </properties>
 
     <dependencies>
@@ -57,17 +54,14 @@
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
-            <version>2.0.1.Final</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>6.0.13.Final</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -128,8 +122,6 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <source>9</source>
-                    <target>9</target>
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.projectlombok</groupId>

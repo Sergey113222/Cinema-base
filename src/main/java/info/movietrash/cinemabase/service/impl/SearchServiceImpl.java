@@ -84,7 +84,7 @@ public class SearchServiceImpl implements SearchService {
             objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
             JsonNode responseBody = objectMapper.readTree(response.getBody());
             JsonNode resultsMassive = responseBody.path(JSON_NODE_STR);
-            return objectMapper.readValue(resultsMassive.toString(), new TypeReference<>() {
+            return objectMapper.readValue(resultsMassive.toString(), new TypeReference<List<MovieDto>>() {
             });
         } catch (Exception e) {
             log.error(String.format("Can't get movie from resource. %s", e.getMessage()));

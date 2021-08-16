@@ -32,7 +32,7 @@ public class ParserTest {
         String actualStr = readTestResourceFile(str);
         JsonNode responseBody = objectMapper.readTree(actualStr);
         JsonNode resultsMassive = responseBody.path("results");
-        List<MovieDto> jsonToMoviesList = objectMapper.readValue(resultsMassive.toString(), new TypeReference<>() {
+        List<MovieDto> jsonToMoviesList = objectMapper.readValue(resultsMassive.toString(), new TypeReference<List<MovieDto>>() {
         });
         //jsonToMoviesList.forEach(System.out::println);
 

@@ -7,3 +7,19 @@
   Git, Maven, Intellij idea, OOP, Tests - JUnit, Mockito. 
   
  - TheMovieDB API documentations: https://developers.themoviedb.org/3/getting-started/introduction
+ 
+ 
+ - Access address to UI Swagger http://localhost:8080/swagger-ui/
+ - Registration body {   
+                "username": "String",
+                "password": "String",      
+                "profileDto": {  
+                     "email":"string@mail.com"          
+                }           
+            }
+ -Authorize is: Bearer+Space+Token 
+ 
+ - DB:
+   - for connection with database engine with existing database: run default profile. 
+     Requirements: 1) create database ‘movie_trash’ 2) fill username and password fields in application.properties
+   - for connection with embedded database: run application with profile ‘local’ (-Dspring.profiles.active=local)           
