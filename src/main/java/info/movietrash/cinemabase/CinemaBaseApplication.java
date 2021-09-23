@@ -3,13 +3,14 @@ package info.movietrash.cinemabase;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import info.movietrash.cinemabase.service.impl.GenreServiceImpl;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 
 @SpringBootApplication
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CinemaBaseApplication {
     private final GenreServiceImpl genreService;
 
