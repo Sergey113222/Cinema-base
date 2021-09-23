@@ -25,7 +25,9 @@ class UserServiceImplTest {
     private UserRepository userRepository;
     private DirectionConverter directionConverter;
     private JwtTokenProvider jwtTokenProvider;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
     private final User user;
+    private final UserDto userDto;
 
     {
         user = new User();
@@ -35,26 +37,26 @@ class UserServiceImplTest {
         user.setActive(true);
     }
 
+    {
+        userDto = new UserDto();
+        userDto.setId(2L);
+        userDto.setUsername("Maxim");
+        userDto.setPassword("G113222");
+    }
+
     @BeforeEach
     void setUp() {
         userRepository = mock(UserRepository.class);
         userConverter = mock(UserConverter.class);
-        userService = new UserServiceImpl(userRepository, userConverter, (BCryptPasswordEncoder) directionConverter, jwtTokenProvider);//????
-    }
-
-    @Test
-    void createUser() {
-        when(userRepository.save(any())).thenReturn(user);
-        userService.createUser(new UserDto(null, "SSS", "S123456"));
-
-        verify(userRepository).save(any());
-        assertNotNull(user.getId());
+        bCryptPasswordEncoder= mock(BCryptPasswordEncoder.class);
+        jwtTokenProvider = mock(JwtTokenProvider.class);
+        userService = new UserServiceImpl(userRepository, userConverter, bCryptPasswordEncoder,  jwtTokenProvider);
     }
 
     @Test
     void findUserById() {
         when(userRepository.findById(any())).thenReturn(Optional.of(user));
-        when(userConverter.toDto(any())).thenReturn(new UserDto(1L, "Maxim", "G113222"));
+        when(userConverter.toDto(any())).thenReturn(userDto);
         UserDto userDto = userService.findUserById(user.getId());
 
         assertNotNull(userDto.getId());
@@ -65,7 +67,7 @@ class UserServiceImplTest {
     @Test
     void updateUser() {
         when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
-        when(userConverter.toDto(any())).thenReturn(new UserDto(2L, "Maxim", "G113222"));
+        when(userConverter.toDto(any())).thenReturn(userDto);
         UserDto userDto = userService.findUserById(user.getId());
         userService.updateUser(userDto);
 

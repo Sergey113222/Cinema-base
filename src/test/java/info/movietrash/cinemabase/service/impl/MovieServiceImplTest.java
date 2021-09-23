@@ -87,17 +87,6 @@ class MovieServiceImplTest {
     }
 
     @Test
-    void addToFavouriteMovies() {
-        when(userRepository.findById(any())).thenReturn(Optional.ofNullable(user));
-        when(movieRepository.findByExternalId(any())).thenReturn(Optional.ofNullable(movie));
-        UserMovie userMovie = new UserMovie();
-        userMovie.setId(55L);
-        when(userMovieRepository.save(any())).thenReturn(userMovie);
-        movieService.addToFavouriteMovies(movieDto);
-        assertNotNull(userMovie.getId());
-    }
-
-    @Test
     void fetchFavouriteMovieById() {
         when(userMovieRepository.findById(any())).thenReturn(Optional.of(userMovie));
         when(userMovieConverter.convertUserMovieToMovieDto(any())).thenReturn(movieDto);
