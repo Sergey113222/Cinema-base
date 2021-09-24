@@ -16,8 +16,8 @@ public class RegistrationController {
     private final UserService userService;
 
     @PostMapping(value = "/new")
-    public AuthenticationResponseDto register(@RequestBody @Valid UserDto userDto) {
-        return userService.createUser(userDto);
+    public void register(@RequestBody @Valid UserDto userDto) {
+        userService.createUser(userDto);
     }
 
     @PutMapping(value = "/update")

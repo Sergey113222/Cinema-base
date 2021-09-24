@@ -8,7 +8,7 @@
   
  - TheMovieDB API documentations: https://developers.themoviedb.org/3/getting-started/introduction
  
- - Goodle Drive Link video https://drive.google.com/drive/folders/1S1FcpHI2M25dDK9B6OJkFyMACGgI57yk?usp=sharing
+ - Google Drive Link video https://drive.google.com/drive/folders/1S1FcpHI2M25dDK9B6OJkFyMACGgI57yk?usp=sharing
  
  - Access address to UI Swagger http://localhost:8080/swagger-ui/
   
